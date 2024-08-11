@@ -1,0 +1,23 @@
+{
+  "name": "messenger",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3000 --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "npm run build & npm run dev"
+  },
+  "devDependencies": {
+    "sass": "^1.77.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "express": "^4.19.2",
+    "postcss-nested": "^6.0.1",
+    "vite-plugin-handlebars": "^2.0.0"
+  }
+}

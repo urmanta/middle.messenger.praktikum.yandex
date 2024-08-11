@@ -1,0 +1,22 @@
+@import '../../assets/variables';
+
+.chat-page {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+
+  &__wrapper {
+    display: flex;
+    height: 100vh;
+  }
+
+  &__list {
+    border-right: 1px solid $divider-line-color;
+    width: 300px;
+  }
+
+  &__chat {
+    flex: 1;
+    background: rgba(256,256,256, 0.25);
+  }
+}
