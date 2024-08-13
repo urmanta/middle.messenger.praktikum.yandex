@@ -10,3 +10,4 @@ export { PageTitle } from './page-title';
 export { Search } from './search';
 export { Avatar } from './avatar';
 export { Wrapper } from './wrapper';
+export { Error } from './error';

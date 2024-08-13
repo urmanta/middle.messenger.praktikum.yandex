@@ -16,7 +16,8 @@
   &__sidebar {
     height: 100vh;
     border-right: 1px solid $divider-line-color;
-    background: rgba(256, 256, 256, 0.4);
+    background: url("../../assets/icons/back.svg") rgba(256, 256, 256, 0.4) no-repeat center center;
     width: 64px;
+    cursor: pointer;
   }
 }

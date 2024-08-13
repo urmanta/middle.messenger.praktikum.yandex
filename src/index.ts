@@ -9,6 +9,8 @@ const pages: {[index: string]:any} = {
   'profile': [ Pages.ProfilePage ],
   'profile-edit': [ Pages.ProfileEditPage ],
   'password-edit': [ Pages.PasswordEditPage ],
+  '404': [ Pages.NotFound ],
+  '500': [ Pages.ServerError ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {
