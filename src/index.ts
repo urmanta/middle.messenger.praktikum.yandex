@@ -5,6 +5,10 @@ import * as Components from './components';
 const pages: {[index: string]:any} = {
   'chat': [ Pages.ChatPage ],
   'login': [ Pages.LoginPage ],
+  'registration': [ Pages.RegistrationPage ],
+  'profile': [ Pages.ProfilePage ],
+  'profile-edit': [ Pages.ProfileEditPage ],
+  'password-edit': [ Pages.PasswordEditPage ],
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {

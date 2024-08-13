@@ -1,11 +1,19 @@
-<div class="chat-page">
+<main class="chat-page">
     <div class="chat-page__wrapper">
-        {{#> ChatList className="chat-page__list" }}
-            {{#each (chat-page-list)}}
-                {{> ChatItem }}
-            {{/each}}
-        {{/ ChatList }}
+        <div class="chat-page__sidebar">
+            <div class="chat-page__header" >
+                <div class="chat-page__navigation">
+                    {{> Link page="login" className="chat-page__back" text="Назад к логину"}}
+                    {{> Link page="profile" className="chat-page__forward" text="Профиль"}}
+                </div>
+                {{> Search className="chat-page__search" }}
+            </div>
+            {{#> ChatList className="chat-page__list" }}
+                {{#each (chat-page-list)}}
+                    {{> ChatItem }}
+                {{/each}}
+            {{/ ChatList }}
+        </div>
         <div class="chat-page__chat"></div>
     </div>
-    {{> Link page="LoginPage" text="Назад к логину"}}
-</div>
+</main>

@@ -1,0 +1,22 @@
+@import '../../assets/variables';
+
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+
+  &__block {
+    min-height: 100vh;
+    padding: 60px 0;
+    box-sizing: border-box;
+    background: $chat-list-bgcolor;
+    flex: 1;
+  }
+
+  &__sidebar {
+    height: 100vh;
+    border-right: 1px solid $divider-line-color;
+    background: rgba(256, 256, 256, 0.4);
+    width: 64px;
+  }
+}

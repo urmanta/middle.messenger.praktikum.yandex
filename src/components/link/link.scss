@@ -6,13 +6,13 @@
   flex-direction: column;
   justify-content: center;
   height: 40px;
-  width: 100%;
   text-align: center;
   color: $link-color;
   text-decoration: none;
   cursor: pointer;
+  transition: color 0.45s;
 
   &:hover {
-    text-decoration: underline;
+    color: $link-hover-color;
   }
 }
