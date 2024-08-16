@@ -1,0 +1,29 @@
+@import '../../assets/variables';
+
+.input {
+  height: 26px;
+
+  &__element {
+    border: none;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font: inherit;
+    border-bottom: 1px solid $divider-line-color;
+    transition: border-color 0.45s;
+
+    &--align-right {
+      text-align: right;
+    }
+
+    &:read-only:focus-visible {
+      border-color: $divider-line-color;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: $link-color;
+    }
+  }
+}

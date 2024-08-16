@@ -1,0 +1,24 @@
+@import '../../assets/variables';
+
+.profile-field {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__title {
+    position: absolute;
+    font: $font-regular;
+    color: $title-color;
+  }
+
+  &__element {
+    width: 100%;
+  }
+
+  input {
+    padding-left: 100px;
+    font: $font-regular;
+    color: $text-light-color;
+  }
+}

@@ -1,0 +1,21 @@
+@import '../../assets/variables';
+
+.button {
+  height: 40px;
+  width: 100%;
+  max-width: 280px;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 14px;
+  background: linear-gradient(90deg, #B69DF7 0%, #F5C0EF 100%);
+  color: $button-color;
+  border: 0;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: inherit;
+  transition: box-shadow 0.45s;
+}
+
+.button:hover {
+  box-shadow: 0 0 8px 2px #d0bcff;
+}
