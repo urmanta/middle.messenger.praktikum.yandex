@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import * as Pages from './pages';
 import * as Components from './components';
 
-const pages: {[index: string]:any} = {
+const pages: {[index: string]:string[]} = {
   'chat': [ Pages.ChatPage ],
   'login': [ Pages.LoginPage ],
   'registration': [ Pages.RegistrationPage ],
