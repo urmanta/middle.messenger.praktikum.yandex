@@ -3,6 +3,17 @@
 .input {
   height: 26px;
 
+  &__label {
+    transform: translateY(-21px);
+    color: $text-light-color;
+    font-size: 13px;
+    font-weight: 500;
+    user-select: none;
+    transition:
+            font-size 0.5s,
+            transform 0.5s;
+  }
+
   &__element {
     border: none;
     padding: 0;
@@ -24,6 +35,12 @@
     &:focus-visible {
       outline: none;
       border-color: $link-color;
+    }
+
+    &:not(:placeholder-shown) + .input__label,
+    &:focus + .input__label {
+      transform: translateY(-36px);
+      font-size: 9px;
     }
   }
 }

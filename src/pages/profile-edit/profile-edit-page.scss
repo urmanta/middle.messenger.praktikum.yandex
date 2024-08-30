@@ -1,22 +1,7 @@
 @import '../../assets/variables';
 
-.profile-edit-page {
-  &__wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__data {
-    width: 80%;
-    max-width: 510px;
-    margin-bottom: 60px;
-  }
-
-  &__name {
-    visibility: hidden;
-    color: $title-color;
-    font: $font-title;
-    margin: 20px 0;
+.profile-page {
+  &__save-button {
+    margin: 0 auto;
   }
 }

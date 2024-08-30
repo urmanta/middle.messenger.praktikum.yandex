@@ -1,8 +1,7 @@
 import Handlebars from 'handlebars';
 import * as Pages from './pages';
-import * as Components from './components';
 
-const pages: {[index: string]:string[]} = {
+const pages: {[index: string]:any[]} = {
   'chat': [ Pages.ChatPage ],
   'login': [ Pages.LoginPage ],
   'registration': [ Pages.RegistrationPage ],
@@ -13,14 +12,20 @@ const pages: {[index: string]:string[]} = {
   '500': [ Pages.ServerError ],
 };
 
-Object.entries(Components).forEach(([ name, component ]) => {
-  Handlebars.registerPartial(name, component);
-});
-
 function navigate(page: string) {
-  const [ source, args ] = pages[page];
-  const handlebarsFunct = Handlebars.compile(source);
-  document.body.innerHTML = handlebarsFunct(args);
+
+  const [ source, context ] = pages[page];
+  const container = document.getElementById('app')!;
+
+  if(source instanceof Object) {
+    const page = new source(context);
+    container.innerHTML = '';
+    container.append(page.getContent());
+    page.dispatchComponentDidMount();
+    return;
+  }
+
+  container.innerHTML = Handlebars.compile(source)(context);
 }
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
