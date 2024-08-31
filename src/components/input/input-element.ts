@@ -34,7 +34,7 @@ class InputElement extends Block {
 
     render(): string {
         return `
-        <div class="input{{#if className}} {{ className }}{{/if}}{{#if error}}input__error{{/if}}" >
+        <div class="input{{#if className}} {{ className }}{{/if}}{{#if error}} input__error{{/if}}" >
             <label class="input__container">
                 {{{ Input }}}
                 <div class="input__label">{{label}}</div>

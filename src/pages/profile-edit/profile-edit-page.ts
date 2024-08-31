@@ -1,7 +1,6 @@
 import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
-import { Button } from "../../components/button";
 
 export default class ProfileEditPage extends Block {
     constructor(props: any) {
@@ -9,9 +8,13 @@ export default class ProfileEditPage extends Block {
             ...props,
             profileWrapper: new Wrapper({
                 profileBody: new Profile({
-                    controls: [
-                        new Button({label: 'Сохранить', page: 'profile', className: 'profile-page__save-button'}),
-                    ]
+                    isEditMode: true,
+                    mail: 'celestia@gmail.com',
+                    login: 'celestia',
+                    first_name: 'Селестия',
+                    second_name: 'Принцесса',
+                    display_name: 'Селестия',
+                    phone: '+79099990090'
                 })
             })
         });

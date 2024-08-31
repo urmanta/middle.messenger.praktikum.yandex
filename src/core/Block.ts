@@ -17,7 +17,7 @@ export default class Block {
 
     protected _id: number = Math.floor(100000 + Math.random() * 900000);
 
-    protected props: BlockProps;
+    public props: BlockProps;
 
     protected children: Record<string, Block>;
 

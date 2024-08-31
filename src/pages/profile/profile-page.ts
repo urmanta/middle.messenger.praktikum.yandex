@@ -1,7 +1,6 @@
 import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
-import { Link } from "../../components";
 
 export default class ProfilePage extends Block {
     constructor(props: any) {
@@ -9,13 +8,12 @@ export default class ProfilePage extends Block {
             ...props,
             profileWrapper: new Wrapper({
                 profileBody: new Profile({
-                    name: 'Селестия',
-                    readonly: 'true',
-                    controls: [
-                        new Link({label: 'Изменить данные', page: 'profile-edit'}),
-                        new Link({label: 'Изменить пароль', page: 'password-edit'}),
-                        new Link({label: 'Выйти', page: 'login'})
-                    ]
+                    mail: 'celestia@gmail.com',
+                    login: 'celestia',
+                    first_name: 'Селестия',
+                    second_name: 'Принцесса',
+                    display_name: 'Селестия',
+                    phone: '+79099990090'
                 })
             })
         });

@@ -1,16 +1,25 @@
 import Block from "../../core/Block";
+import { Button } from "../button";
 import { ProfileField } from "../profile-field";
+import { validateEmail, validateLogin, validatePhone, validateName } from "../../utils";
+import {Link} from "../link";
 
 export default class Profile extends Block {
     init() {
-        const onChangeLoginBind = this.onChangeLogin.bind(this);
+        const onChangeBind = this.onChange.bind(this);
+        const onSaveBind = this.onSave.bind(this);
+        this.checkFormData();
 
-        const MailInput = new ProfileField({title: 'Почта', name: 'mail', value: 'celestia@gmail.com', onBlur: onChangeLoginBind, className: 'profile-page__input', readonly: this.props.readonly});
-        const LoginInput = new ProfileField({title: 'Логин', name: 'login', value: 'celestia', onBlur: onChangeLoginBind, className: 'profile-page__input', readonly: this.props.readonly});
-        const NameInput = new ProfileField({title: 'Имя', name: 'first_name', value: 'Селестия', onBlur: onChangeLoginBind, className: 'profile-page__input', readonly: this.props.readonly});
-        const SecondNameInput = new ProfileField({title: 'Фамилия', name: 'second_name', value: 'Принцесса', onBlur: onChangeLoginBind, className: 'profile-page__input', readonly: this.props.readonly});
-        const DisplayNameInput = new ProfileField({title: 'Имя в чате', name: 'display_name', value: 'Селестия', onBlur: onChangeLoginBind, className: 'profile-page__input', readonly: this.props.readonly});
-        const PhoneInput = new ProfileField({title: 'Телефон', name: 'phone', value: '+7 909 999 00 90', onBlur: onChangeLoginBind, className: 'profile-page__input', readonly: this.props.readonly});
+        const MailInput = new ProfileField({title: 'Почта', name: 'mail', value: this.props.mail, onBlur: (e: FocusEvent) => onChangeBind(e, validateEmail), readonly: !this.props.isEditMode});
+        const LoginInput = new ProfileField({title: 'Логин', name: 'login', value: this.props.login, onBlur: (e: FocusEvent) => onChangeBind(e, validateLogin), readonly: !this.props.isEditMode});
+        const NameInput = new ProfileField({title: 'Имя', name: 'first_name', value: this.props.first_name, onBlur: (e: FocusEvent) => onChangeBind(e, validateName), readonly: !this.props.isEditMode});
+        const SecondNameInput = new ProfileField({title: 'Фамилия', name: 'second_name', value: this.props.second_name, onBlur: (e: FocusEvent) => onChangeBind(e, validateName), readonly: !this.props.isEditMode});
+        const DisplayNameInput = new ProfileField({title: 'Имя в чате', name: 'display_name', value: this.props.display_name, onBlur: (e: FocusEvent) => onChangeBind(e, validateName), readonly: !this.props.isEditMode});
+        const PhoneInput = new ProfileField({title: 'Телефон', name: 'phone', value: this.props.phone, onBlur: (e: FocusEvent) => onChangeBind(e, validatePhone), readonly: !this.props.isEditMode});
+        const SaveButton = new Button({label: 'Сохранить', page: 'profile', className: 'profile-page__save-button', onClick: onSaveBind, disabled: !this.props.isFormValid});
+        const EditProfileLink = new Link({label: 'Изменить данные', page: 'profile-edit'});
+        const EditPasswordLink = new Link({label: 'Изменить пароль', page: 'password-edit'});
+        const LogOutLink = new Link({label: 'Выйти', page: 'login'});
 
         this.children = {
             ...this.children,
@@ -19,28 +28,71 @@ export default class Profile extends Block {
             NameInput,
             SecondNameInput,
             DisplayNameInput,
-            PhoneInput
+            PhoneInput,
+            SaveButton,
+            EditProfileLink,
+            EditPasswordLink,
+            LogOutLink
         }
     }
 
-    onChangeLogin(e: any) {
-        const inputValue = e.target.value;
-        if(inputValue === 'error') {
-            this.children.LoginInput.setProps({error: true, errorText: 'some error'});
-            return;
-        } else {
-            this.children.LoginInput.setProps({error: false, errorText: null});
-
+    componentDidUpdate(oldProps: any, newProps: any): boolean {
+        if(oldProps === newProps) {
+            return false;
         }
 
-        this.setProps({login: inputValue})
+        this.children.SaveButton?.setProps({...newProps, disabled: !newProps.isFormValid});
+        return true;
+    }
+
+    getFormData() {
+        return {
+            mail: this.props.mail,
+            login: this.props.login,
+            first_name: this.props.first_name,
+            second_name: this.props.second_name,
+            display_name: this.props.display_name,
+            phone: this.props.phone
+        }
+    }
+
+    checkFormData() {
+        this.setProps({
+            isFormValid: Object.values(this.getFormData()).every(value => value !== undefined)
+        });
+    }
+
+    onSave() {
+        if (this.props.isFormValid) {
+            console.log('Данные формы валидны', this.getFormData());
+        } else {
+            console.log('Данные формы невалидны', this.getFormData());
+        }
+    }
+
+    onChange(e: FocusEvent, validateFunc: (str: string) => string | null) {
+        const inputElement = e.target as HTMLInputElement;
+        const {value, name} = inputElement;
+        const validationError = validateFunc(value);
+        const child = Object.values(this.children).find((child: Block) => child.props.name === name);
+        if( validationError ) {
+            child?.setProps({error: true, errorText: validationError});
+            if (!value) this.setProps({[name]: undefined});
+        } else {
+            child?.setProps({error: false, errorText: null});
+            this.setProps({[name]: value});
+        }
+
+        this.checkFormData();
     }
 
     render() {
         return (
             `
                 <div class="profile-page__data">
-                    <div class="profile-page__name">{{{ name }}}</div>
+                    <div class="profile-page__name">
+                        {{#if isEditMode}}{{{ display_name }}}{{/if}}
+                    </div>
                     <div class="profile-page__data">
                         {{{ MailInput }}}
                         {{{ LoginInput }}}
@@ -50,7 +102,13 @@ export default class Profile extends Block {
                         {{{ PhoneInput }}}
                     </div>
                     <div class="profile-page__actions">
-                        {{{ controls }}}
+                        {{#if isEditMode}}
+                            {{{ SaveButton }}}
+                        {{else}}
+                            {{{ EditProfileLink }}}
+                            {{{ EditPasswordLink }}}
+                            {{{ LogOutLink }}}
+                        {{/if}}
                     </div>
                 </div>
             `

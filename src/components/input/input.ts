@@ -8,10 +8,10 @@ class Input extends Block {
     render(): string {
         return `
             <input
-                class="input__element{{#if className}} {{ className }}{{/if}}"
-                type={{ type }}
+                class="input__element"
+                type="{{#if type}}{{ type }}{{else}}text{{/if}}"
                 name={{ name }}
-                value="{{#if value}} {{ value }}{{/if}}"
+                value="{{#if value}}{{ value }}{{/if}}"
                 placeholder="{{#if placeholder}} {{ placeholder }}{{/if}}"
                 {{#if readonly}} readonly{{/if}}
             />

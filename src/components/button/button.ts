@@ -12,7 +12,11 @@ class Button extends Block {
 
     render(): string {
         return `
-            <button class="button button__{{type}}{{#if className}} {{className}}{{/if}}" page={{page}} >
+            <button 
+                class="button button__{{type}}{{#if className}} {{className}}{{/if}}" 
+                page={{page}} 
+                {{#if disabled}} disabled{{/if}}
+            >
                 {{label}}
             </button>
         `

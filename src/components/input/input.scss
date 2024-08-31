@@ -43,4 +43,16 @@
       font-size: 9px;
     }
   }
+
+  &__text-error {
+    transform: translateY(-12px);
+    color: $text-red;
+    font-size: 8px;
+    font-weight: 400;
+    display: none;
+  }
+
+  &__error .input__text-error {
+    display: block;
+  }
 }

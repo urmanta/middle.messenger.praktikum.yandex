@@ -13,3 +13,4 @@ export { FormLogin } from './form-login';
 export { FormRegistration } from './form-registration';
 export { FormWrapper } from './form-wrapper';
 export { Password } from './password';
+export { MessageField } from './message-field';
