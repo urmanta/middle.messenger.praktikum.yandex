@@ -1,14 +1,25 @@
 import Block from "../../core/Block";
 import { Button } from "../button";
-import {ProfileField} from "../profile-field";
+import { ProfileField } from "../profile-field";
 
-class MessageField extends Block {
+type MessageFieldProps = {
+    isFormValid?: boolean,
+    message: string,
+    name?: string,
+}
+
+type MessageFieldChildren = {
+    MessageInput: ProfileField,
+    SendButton: Button
+}
+
+class MessageField extends Block<MessageFieldProps, MessageFieldChildren> {
     init() {
         const onChangeBind = this.onChange.bind(this);
         const onSendBind = this.onSend.bind(this);
 
-        const MessageInput = new ProfileField({name: 'message', className: 'message-field__input', onBlur: onChangeBind});
-        const SendButton = new Button({type: 'submit', className: 'message-field__button', onClick: onSendBind, disabled: !this.props.isFormValid});
+        const MessageInput = new ProfileField({title: '', name: 'message', className: 'message-field__input', onBlur: onChangeBind});
+        const SendButton = new Button({label: '', type: 'submit', className: 'message-field__button', onClick: onSendBind, disabled: !this.props.isFormValid});
 
         this.children = {
             ...this.children,
@@ -34,7 +45,7 @@ class MessageField extends Block {
         }
     }
 
-    onChange(e: FocusEvent) {
+    onChange(e: Event) {
         const inputElement = e.target as HTMLInputElement;
         const {value} = inputElement;
 

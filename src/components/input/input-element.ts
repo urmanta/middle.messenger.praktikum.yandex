@@ -2,8 +2,27 @@ import Block from "../../core/Block";
 import ErrorLine from "./error-line";
 import Input from "./input";
 
-class InputElement extends Block {
-    constructor(props: any) {
+type InputElementProps = {
+    type?: string,
+    name: string,
+    placeholder?: string,
+    value?: string,
+    className?: string,
+    readonly?: boolean,
+    label: string,
+    error?: boolean,
+    errorText?: string,
+    'align-right'?: boolean,
+    onBlur: (e: Event) => void,
+}
+
+type InputElementChildren = {
+    Input: Input,
+    ErrorLine: ErrorLine
+}
+
+class InputElement extends Block<InputElementProps, InputElementChildren> {
+    constructor(props: InputElementProps) {
         super({
             ...props,
             Input: new Input({
@@ -18,7 +37,7 @@ class InputElement extends Block {
                 }
             }),
             ErrorLine: new ErrorLine({
-                error: props.errorText
+                errorText: props.errorText || ''
             })
         })
     }

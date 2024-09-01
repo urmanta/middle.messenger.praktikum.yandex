@@ -2,12 +2,18 @@ import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
 
-export default class ProfilePage extends Block {
-    constructor(props: any) {
+type ProfilePageProps = {}
+
+type ProfilePageChildren = {
+    ProfileWrapper: Wrapper
+}
+
+export default class ProfilePage extends Block<ProfilePageProps, ProfilePageChildren> {
+    constructor(props: ProfilePageProps) {
         super({
             ...props,
-            profileWrapper: new Wrapper({
-                profileBody: new Profile({
+            ProfileWrapper: new Wrapper({
+                ProfileBody: new Profile({
                     mail: 'celestia@gmail.com',
                     login: 'celestia',
                     first_name: 'Селестия',
@@ -21,7 +27,7 @@ export default class ProfilePage extends Block {
 
     render() {
         return (
-            `{{{ profileWrapper }}}`
+            `{{{ ProfileWrapper }}}`
         )
     }
 }

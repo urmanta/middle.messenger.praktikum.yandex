@@ -2,12 +2,18 @@ import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
 
-export default class ProfileEditPage extends Block {
+type ProfileEditPageProps = {}
+
+type ProfileEditPageChildren = {
+    ProfileWrapper: Wrapper
+}
+
+export default class ProfileEditPage extends Block<ProfileEditPageProps, ProfileEditPageChildren> {
     constructor(props: any) {
         super({
             ...props,
-            profileWrapper: new Wrapper({
-                profileBody: new Profile({
+            ProfileWrapper: new Wrapper({
+                ProfileBody: new Profile({
                     isEditMode: true,
                     mail: 'celestia@gmail.com',
                     login: 'celestia',
@@ -22,7 +28,7 @@ export default class ProfileEditPage extends Block {
 
     render() {
         return (
-            `{{{ profileWrapper }}}`
+            `{{{ ProfileWrapper }}}`
         )
     }
 }

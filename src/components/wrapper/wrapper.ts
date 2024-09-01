@@ -1,11 +1,17 @@
 import Block from "../../core/Block";
 import {Avatar} from "../avatar";
 
-export default class Wrapper extends Block {
-    constructor(props: any) {
+type WrapperProps = {}
+
+type WrapperChildren = {
+    Avatar: Avatar
+}
+
+export default class Wrapper extends Block<WrapperProps, WrapperChildren> {
+    constructor(props: WrapperProps) {
         super({
             ...props,
-            avatar: new Avatar({})
+            Avatar: new Avatar({})
         });
     }
 
@@ -15,8 +21,8 @@ export default class Wrapper extends Block {
                 <div class="wrapper__sidebar" page="chat"></div>
                 <div class="wrapper__block">
                     <div class="profile__wrapper">
-                        {{{ avatar }}}
-                        {{{ profileBody }}}
+                        {{{ Avatar }}}
+                        {{{ ProfileBody }}}
                     </div>
                 </div>
             </div>`

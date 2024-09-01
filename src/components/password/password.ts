@@ -2,8 +2,27 @@ import Block from "../../core/Block";
 import { ProfileField } from "../profile-field";
 import { Button } from "../button";
 import { validatePassword } from "../../utils";
+import {Input} from "../input";
 
-export default class Password extends Block {
+type PasswordProps = {
+    oldPassword?: string,
+    newPassword?: string,
+    confirmNewPassword?: string,
+    isFormValid?: boolean
+}
+
+type PasswordChildren = {
+    OldPasswordInput: ProfileField,
+    NewPasswordInput: ProfileField,
+    ConfirmNewPasswordInput: ProfileField,
+    SaveButton: Button
+}
+
+export default class Password extends Block<PasswordProps, PasswordChildren> {
+    constructor(props: PasswordProps) {
+        super(props);
+    }
+
     init() {
         const onChangeBind = this.onChange.bind(this);
         const onSaveBind = this.onSave.bind(this);
@@ -53,11 +72,13 @@ export default class Password extends Block {
         }
     }
 
-    onChange(e: FocusEvent) {
+    onChange(e: Event) {
         const inputElement = e.target as HTMLInputElement;
         const {value, name} = inputElement;
         const validationError = validatePassword(value);
-        const child = Object.values(this.children).find((child: Block) => child.props.name === name);
+        const child = Object.values(this.children).find(
+            (child): child is ProfileField => child instanceof Input && 'name' in child.props && child.props.name === name
+        );
         if( validationError ) {
             child?.setProps({error: true, errorText: validationError});
             if (!value) this.setProps({[name]: undefined});

@@ -1,6 +1,13 @@
 import Block from "../../core/Block";
 
-class Link extends Block {
+type LinkProps = {
+    page: string,
+    label: string
+}
+
+type LinkChildren = {}
+
+class Link extends Block<LinkProps, LinkChildren> {
     constructor(props: any) {
         super({
             ...props,

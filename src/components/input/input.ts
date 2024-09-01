@@ -1,7 +1,19 @@
 import Block from "../../core/Block";
 
-class Input extends Block {
-    constructor(props:any) {
+type InputProps = {
+    type?: string,
+    readonly?: boolean,
+    placeholder?: string,
+    value?: string,
+    className?: string,
+    name?: string,
+    events: {
+        [key: string]: (event: Event) => void;
+    }
+}
+
+class Input extends Block<InputProps, {}> {
+    constructor(props: InputProps) {
         super(props)
     }
 

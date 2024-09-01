@@ -1,8 +1,17 @@
 import { Link, Search, ChatList, MessageField } from "../../components";
 import Block from "../../core/Block";
 
-export default class ChatPage extends Block {
+type ChatPageProps = {}
 
+type ChatPageChildren = {
+    ToLogin: Link,
+    ToProfile: Link,
+    SearchBlock: Search,
+    ChatListBlock: ChatList,
+    MessageFieldBlock: MessageField
+}
+
+export default class ChatPage extends Block<ChatPageProps, ChatPageChildren> {
     init() {
         const ToLogin = new Link({label: 'Назад к логину', className: "chat-page__back", page: 'login'});
         const ToProfile = new Link({label: 'Профиль', className: "chat-page__forward", page: 'profile'});
@@ -18,8 +27,6 @@ export default class ChatPage extends Block {
             ChatListBlock,
             MessageFieldBlock
         }
-
-        this.name = 'LoginPage'
     }
 
     render() {

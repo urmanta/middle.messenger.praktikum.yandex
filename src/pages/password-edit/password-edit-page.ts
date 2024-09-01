@@ -1,25 +1,26 @@
 import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Password } from "../../components/password";
-import { Button } from "../../components/button";
 
-export default class PasswordEditPage extends Block {
-    constructor(props: any) {
+type PasswordEditPageProps = {}
+
+type PasswordEditPageChildren = {
+    ProfileWrapper: Wrapper
+}
+
+export default class PasswordEditPage extends Block<PasswordEditPageProps, PasswordEditPageChildren> {
+    constructor(props: PasswordEditPageProps) {
         super({
             ...props,
-            profileWrapper: new Wrapper({
-                profileBody: new Password({
-                    controls: [
-                        new Button({label: 'Сохранить', page: 'profile', className: 'profile-page__save-button'}),
-                    ]
-                })
+            ProfileWrapper: new Wrapper({
+                ProfileBody: new Password({})
             })
         });
     }
 
     render() {
         return (
-            `{{{ profileWrapper }}}`
+            `{{{ ProfileWrapper }}}`
         )
     }
 }

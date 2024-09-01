@@ -1,18 +1,19 @@
 import { FormRegistration, FormWrapper } from "../../components";
 import Block from "../../core/Block";
 
-export default class LoginPage extends Block {
+type LoginPageProps = {}
 
+type LoginPageChildren = {
+    FormRegistration: FormWrapper
+}
+
+export default class LoginPage extends Block<LoginPageProps, LoginPageChildren> {
     constructor(props: any) {
         super({
             ...props,
             FormRegistration: new FormWrapper({
                 title: 'Регистрация',
-                formBody: new FormRegistration({}),
-                onSubmit: (e: any) => {
-                    e.preventDefault();
-                    console.log('submit')
-                }
+                FormBody: new FormRegistration({})
             }),
         })
     }

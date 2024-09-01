@@ -1,7 +1,11 @@
 import Block from "../../core/Block";
 
-class Search extends Block {
-    constructor(props: any) {
+type SearchProps = {}
+
+type SearchChildren = {}
+
+class Search extends Block<SearchProps, SearchChildren> {
+    constructor(props: SearchProps) {
         super({
             ...props
         })

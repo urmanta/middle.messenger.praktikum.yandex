@@ -1,7 +1,13 @@
 import Block from "../../core/Block";
 
-class PageTitle extends Block {
-    constructor(props:any) {
+type PageTitleProps = {
+    title: string
+}
+
+type PageTitleChildren = {}
+
+class PageTitle extends Block<PageTitleProps, PageTitleChildren> {
+    constructor(props: PageTitleProps) {
         super(props)
     }
 

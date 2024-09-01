@@ -1,6 +1,14 @@
 import Block from "../../core/Block";
 
-class ChatItem extends Block {
+type ChatItemProps = {
+    avatar?: string,
+    name: string,
+    date: string,
+    message: string,
+    unread: number,
+}
+
+class ChatItem extends Block<ChatItemProps, {}> {
     constructor(props:any) {
         super(props)
     }

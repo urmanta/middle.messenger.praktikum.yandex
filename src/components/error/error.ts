@@ -1,8 +1,14 @@
 import Block from "../../core/Block";
 import { Link } from "../link";
 
-class Error extends Block {
-    constructor(props: any) {
+type ErrorProps = {}
+
+type ErrorChildren = {
+    LinkBackTo: Link,
+}
+
+class Error extends Block<ErrorProps, ErrorChildren> {
+    constructor(props: ErrorProps) {
         super({
             ...props,
             LinkBackTo: new Link({page: 'chat', label: '< Вернуться к чатам', className: 'error__link'})

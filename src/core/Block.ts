@@ -1,11 +1,21 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
 
-interface BlockProps {
-    [key: string]: any;
+export type RefType = {
+    [key: string]: Block<Props>
+} | {}
+
+type EventHandlers = {
+    [key: string]: (event: Event) => void;
+};
+
+export interface Props {
+    [key: string]: unknown;
+    events?: EventHandlers;
+    attr?: { [key: string]: string | boolean };
 }
 
-export default class Block {
+export default class Block<BlockProps extends Props, Children extends RefType = RefType> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -19,7 +29,7 @@ export default class Block {
 
     public props: BlockProps;
 
-    protected children: Record<string, Block>;
+    protected children: Children;
 
     protected lists: Record<string, any[]>;
 
@@ -27,9 +37,9 @@ export default class Block {
 
     protected name: string = '';
 
-    constructor(propsWithChildren: BlockProps = {}) {
+    constructor(propsAndChildren: Partial<Props & Children>) {
         const eventBus = new EventBus();
-        const { props, children, lists } = this._getChildrenPropsAndProps(propsWithChildren);
+        const { props, children, lists } = this._getChildrenPropsAndProps(propsAndChildren);
         this.props = this._makePropsProxy({ ...props });
         this.children = children;
         this.lists = lists;
@@ -86,22 +96,22 @@ export default class Block {
         return true;
     }
 
-    private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
-        children: Record<string, Block>,
+    private _getChildrenPropsAndProps(propsAndChildren: Partial<Props & Children> = {}): {
+        children: Children,
         props: BlockProps,
         lists: Record<string, any[]>
     } {
-        const children: Record<string, Block> = {};
-        const props: BlockProps = {};
+        const children: Children = {} as Children;
+        const props: BlockProps = {} as BlockProps;
         const lists: Record<string, any[]> = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
             if (value instanceof Block) {
-                children[key] = value;
+                (children as Record<string, unknown>)[key] = value;
             } else if (Array.isArray(value)) {
                 lists[key] = value;
             } else {
-                props[key] = value;
+                (props as Record<string, unknown>)[key] = value;
             }
         });
 
@@ -118,7 +128,7 @@ export default class Block {
         });
     }
 
-    public setProps = (nextProps: BlockProps): void => {
+    public setProps = (nextProps: Partial<BlockProps>): void => {
         if (!nextProps) {
             return;
         }
@@ -135,14 +145,14 @@ export default class Block {
         const _tmpId =  Math.floor(100000 + Math.random() * 900000);
         Object.entries(this.children).forEach(([key, child]) => {
             if (Array.isArray(child)) {
-                propsAndStubs[key] = child.map(component => `<div data-id="${component._id}"></div>`)
+                (propsAndStubs as Record<string, unknown>)[key] = child.map(component => `<div data-id="${component._id}"></div>`)
             } else {
-                propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
+                (propsAndStubs as Record<string, unknown>)[key] = `<div data-id="${child._id}"></div>`;
             }
         });
 
         Object.entries(this.lists).forEach(([key]) => {
-            propsAndStubs[key] = `<div data-id="__l_${_tmpId}"></div>`;
+            (propsAndStubs as Record<string, unknown>)[key] = `<div data-id="__l_${_tmpId}"></div>`;
         });
 
         const fragment = this._createDocumentElement('template');
@@ -219,7 +229,7 @@ export default class Block {
             },
             set(target: BlockProps, prop: string, value: any) {
                 const oldTarget = { ...target };
-                target[prop] = value;
+                (target as Record<string, unknown>)[prop] = value;
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },

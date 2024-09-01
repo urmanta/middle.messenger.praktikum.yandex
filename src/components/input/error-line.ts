@@ -1,6 +1,10 @@
 import Block from "../../core/Block";
 
-class ErrorLine extends Block {
+type ErrorLineProps =  {
+    errorText: string
+}
+
+class ErrorLine extends Block<ErrorLineProps, {}> {
     render(): string {
         return (`
             <div class="input__text-error">{{errorText}}</div>
@@ -8,4 +12,4 @@ class ErrorLine extends Block {
     }
 }
 
-export default ErrorLine
+export default ErrorLine;

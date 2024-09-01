@@ -4,18 +4,45 @@ import { Input } from "../input";
 import { Link } from "../link";
 import { validateEmail, validateLogin, validatePassword, validatePhone, validateName } from "../../utils";
 
-export default class FormRegistration extends Block {
+type FormRegistrationProps = {
+    email?: string,
+    login?: string,
+    first_name?: string,
+    second_name?: string,
+    phone?: string,
+    password?: string,
+    password_confirm?: string,
+    isFormValid?: boolean,
+}
+
+type FormRegistrationChildren = {
+    InputEmail: Input,
+    InputLogin: Input,
+    InputName: Input,
+    InputLastName: Input,
+    InputPhone: Input,
+    InputPassword: Input,
+    InputPasswordConfirm: Input,
+    ButtonRegistrate: Button,
+    ButtonLogin: Link
+}
+
+export default class FormRegistration extends Block<FormRegistrationProps, FormRegistrationChildren> {
+    constructor(props: FormRegistrationProps) {
+        super(props);
+    }
+
     init() {
         const onChangeBind = this.onChange.bind(this);
         const onSigninBind = this.onSignin.bind(this);
 
-        const InputEmail = new Input({label: 'Почта', name: 'email', onBlur: (e: FocusEvent) => onChangeBind(e, validateEmail), className: 'login-page__input'});
-        const InputLogin = new Input({label: 'Логин', name: 'login', onBlur: (e: FocusEvent) => onChangeBind(e, validateLogin), className: 'login-page__input'});
-        const InputName = new Input({label: 'Имя', name: 'first_name', onBlur: (e: FocusEvent) => onChangeBind(e, validateName), className: 'login-page__input'});
-        const InputLastName = new Input({label: 'Фамилия', name: 'second_name', onBlur: (e: FocusEvent) => onChangeBind(e, validateName), className: 'login-page__input'});
-        const InputPhone = new Input({label: 'Телефон', name: 'phone', onBlur: (e: FocusEvent) => onChangeBind(e, validatePhone), className: 'login-page__input'});
-        const InputPassword = new Input({label: 'Пароль', name: 'password', onBlur: (e: FocusEvent) => onChangeBind(e, validatePassword), className: 'login-page__input', type: 'password'});
-        const InputPasswordConfirm = new Input({label: 'Пароль еще раз', name: 'password_confirm', onBlur: (e: FocusEvent) => onChangeBind(e, validatePassword), className: 'login-page__input', type: 'password'});
+        const InputEmail = new Input({label: 'Почта', name: 'email', onBlur: (e: Event) => onChangeBind(e, validateEmail), className: 'login-page__input'});
+        const InputLogin = new Input({label: 'Логин', name: 'login', onBlur: (e: Event) => onChangeBind(e, validateLogin), className: 'login-page__input'});
+        const InputName = new Input({label: 'Имя', name: 'first_name', onBlur: (e: Event) => onChangeBind(e, validateName), className: 'login-page__input'});
+        const InputLastName = new Input({label: 'Фамилия', name: 'second_name', onBlur: (e: Event) => onChangeBind(e, validateName), className: 'login-page__input'});
+        const InputPhone = new Input({label: 'Телефон', name: 'phone', onBlur: (e: Event) => onChangeBind(e, validatePhone), className: 'login-page__input'});
+        const InputPassword = new Input({label: 'Пароль', name: 'password', onBlur: (e: Event) => onChangeBind(e, validatePassword), className: 'login-page__input', type: 'password'});
+        const InputPasswordConfirm = new Input({label: 'Пароль еще раз', name: 'password_confirm', onBlur: (e: Event) => onChangeBind(e, validatePassword), className: 'login-page__input', type: 'password'});
         const ButtonRegistrate = new Button({label: 'Зарегистрироваться', type: 'primary', page: 'chat', onClick: onSigninBind, disabled: !this.props.isFormValid});
         const ButtonLogin = new Link({label: 'Войти', page: 'login'});
 
@@ -31,8 +58,6 @@ export default class FormRegistration extends Block {
             ButtonRegistrate,
             ButtonLogin,
         }
-
-        this.name = 'LoginPage'
     }
 
     componentDidUpdate(oldProps: any, newProps: any): boolean {
@@ -57,30 +82,31 @@ export default class FormRegistration extends Block {
     }
 
     checkFormData() {
-        return Object.values(this.getFormData()).every(value => value !== undefined);
+        this.setProps({isFormValid: Object.values(this.getFormData()).every(value => value !== undefined)});
     }
 
-    onChange(e: FocusEvent, validateFunc: (str: string) => string | null) {
+    onChange(e: Event, validateFunc: (str: string) => string | null) {
         const inputElement = e.target as HTMLInputElement;
         const {value, name} = inputElement;
         const validationError = validateFunc(value);
-        const child = Object.values(this.children).find((child: Block) => child.props.name === name);
-
+        const child = Object.values(this.children).find(
+            (child): child is Input => child instanceof Input && 'name' in child.props && child.props.name === name
+        );
         if( validationError ) {
             child?.setProps({error: true, errorText: validationError});
             if (!value) this.setProps({[name]: undefined});
         } else {
-            child?.setProps({error: false, errorText: null});
+            child?.setProps({error: false, errorText: undefined});
             this.setProps({[name]: value});
         }
 
         this.setProps({[name]: value});
 
-        this.setProps({isFormValid: this.checkFormData()});
+        this.checkFormData();
     }
 
     onSignin() {
-        if (this.checkFormData()) {
+        if (this.props.isFormValid) {
             console.log('Данные формы валидны', this.getFormData());
         } else {
             console.log('Данные формы невалидны', this.getFormData());

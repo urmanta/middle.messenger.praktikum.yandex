@@ -1,21 +1,39 @@
 import Block from "../../core/Block";
 import { Input } from "../input";
 
-export default class ProfileField extends Block {
-    constructor(props:any) {
+type ProfileFieldProps = {
+    type?: string,
+    name: string,
+    placeholder?: string,
+    value?: string,
+    className?: string,
+    readonly?: boolean,
+    title: string,
+    label?: string,
+    error?: boolean,
+    errorText?: string | null,
+    'align-right'?: boolean,
+    onBlur: (e: Event) => void,
+}
+
+type ProfileFieldChildren = {
+    Input: Input
+}
+
+export default class ProfileField extends Block<ProfileFieldProps, ProfileFieldChildren> {
+    constructor(props: ProfileFieldProps) {
         super({
             ...props,
             Input: new Input({
                 label: '',
-                title: props.title,
                 value: props.value,
                 name: props.name,
                 type: props.type,
                 onBlur: props.onBlur,
                 className: 'profile-field__element',
                 readonly: props.readonly,
-                error: props.error,
-                errorText: props.errorText,
+                error: props.error || false,
+                errorText: props.errorText || undefined,
                 'align-right': true
             })
         })

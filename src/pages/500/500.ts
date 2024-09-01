@@ -1,8 +1,14 @@
 import Block from "../../core/Block";
 import { Error } from "../../components/error";
 
-class ServerError extends Block {
-    constructor(props: any) {
+type ServerErrorProps = {}
+
+type ServerErrorChildren = {
+    ErrorBlock: Error,
+}
+
+class ServerError extends Block<ServerErrorProps, ServerErrorChildren> {
+    constructor(props: ServerErrorProps) {
         super({
             ...props,
             ErrorBlock: new Error({text: 'Сервис временно не доступен', code: '500'})

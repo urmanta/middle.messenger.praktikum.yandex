@@ -1,7 +1,19 @@
 import Block from "../../core/Block";
 
-class Button extends Block {
-    constructor(props: any) {
+type ButtonProps = {
+    disabled?: boolean,
+    className?: string,
+    type?: string,
+    page?: string,
+    label: string,
+    onClick: (event: Event) => void,
+    events?: {
+        [key: string]: (event: Event) => void;
+    }
+}
+
+class Button extends Block<ButtonProps, {}> {
+    constructor(props: ButtonProps) {
         super({
             ...props,
             events: {

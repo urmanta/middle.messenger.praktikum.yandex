@@ -1,18 +1,25 @@
 import { FormLogin, FormWrapper } from "../../components";
 import Block from "../../core/Block";
 
-export default class LoginPage extends Block {
+type LoginPageProps = {}
 
-    constructor(props: any) {
+type LoginPageChildren = {
+    FormLogin: FormWrapper,
+}
+
+export default class LoginPage extends Block<LoginPageProps, LoginPageChildren> {
+    constructor(props: LoginPageProps) {
         super({
             ...props,
             FormLogin: new FormWrapper({
                 title: 'Вход',
-                formBody: new FormLogin({}),
-                onSubmit: (e: any) => {
-                    e.preventDefault();
-                    console.log('submit')
-                }
+                FormBody: new FormLogin({
+                    isFormValid: false,
+                    login: undefined,
+                    password: undefined,
+                    error: false,
+                    errorText: null
+                })
             }),
         })
     }
