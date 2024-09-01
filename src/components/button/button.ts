@@ -12,7 +12,7 @@ type ButtonProps = {
     }
 }
 
-class Button extends Block<ButtonProps, {}> {
+class Button extends Block<ButtonProps, object> {
     constructor(props: ButtonProps) {
         super({
             ...props,

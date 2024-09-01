@@ -41,7 +41,7 @@ export default class Password extends Block<PasswordProps, PasswordChildren> {
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(oldProps: PasswordProps, newProps: PasswordProps): boolean {
         if(oldProps === newProps) {
             return false;
         }
@@ -83,7 +83,7 @@ export default class Password extends Block<PasswordProps, PasswordChildren> {
             child?.setProps({error: true, errorText: validationError});
             if (!value) this.setProps({[name]: undefined});
         } else {
-            child?.setProps({error: false, errorText: null});
+            child?.setProps({error: false, errorText: undefined});
             this.setProps({[name]: value});
         }
 

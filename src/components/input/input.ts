@@ -12,7 +12,7 @@ type InputProps = {
     }
 }
 
-class Input extends Block<InputProps, {}> {
+class Input extends Block<InputProps, object> {
     constructor(props: InputProps) {
         super(props)
     }
@@ -20,7 +20,7 @@ class Input extends Block<InputProps, {}> {
     render(): string {
         return `
             <input
-                class="input__element"
+                class="input__element{{#if className}} {{ className }}{{/if}}"
                 type="{{#if type}}{{ type }}{{else}}text{{/if}}"
                 name={{ name }}
                 value="{{#if value}}{{ value }}{{/if}}"

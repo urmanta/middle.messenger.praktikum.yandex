@@ -3,7 +3,7 @@ import Handlebars from 'handlebars';
 
 export type RefType = {
     [key: string]: Block<Props>
-} | {}
+} | object
 
 type EventHandlers = {
     [key: string]: (event: Event) => void;
@@ -31,7 +31,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
 
     protected children: Children;
 
-    protected lists: Record<string, any[]>;
+    protected lists: Record<string, unknown[]>;
 
     protected eventBus: () => EventBus;
 
@@ -99,11 +99,11 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
     private _getChildrenPropsAndProps(propsAndChildren: Partial<Props & Children> = {}): {
         children: Children,
         props: BlockProps,
-        lists: Record<string, any[]>
+        lists: Record<string, unknown[]>
     } {
         const children: Children = {} as Children;
         const props: BlockProps = {} as BlockProps;
-        const lists: Record<string, any[]> = {};
+        const lists: Record<string, unknown[]> = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
             if (value instanceof Block) {
@@ -178,9 +178,9 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         Object.entries(this.lists).forEach(([, child]) => {
             const listCont = this._createDocumentElement('template');
             child.forEach(item => {
-                const content = item.getContent();
                 if (item instanceof Block) {
-                    listCont.content.append(content);
+                    const content = item.getContent();
+                    if (content) listCont.content.append(content);
                 } else {
                     listCont.content.append(`${item}`);
                 }
@@ -220,20 +220,18 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
     }
 
     private _makePropsProxy(props: BlockProps): BlockProps {
-        const self = this;
-
         return new Proxy(props, {
-            get(target: BlockProps, prop: string) {
+            get: (target: BlockProps, prop: string) => {
                 const value = target[prop];
                 return typeof value === 'function' ? value.bind(target) : value;
             },
-            set(target: BlockProps, prop: string, value: any) {
+            set: (target: BlockProps, prop: string, value: unknown) => {
                 const oldTarget = { ...target };
                 (target as Record<string, unknown>)[prop] = value;
-                self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+                this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },
-            deleteProperty() {
+            deleteProperty: () => {
                 throw new Error('No access');
             },
         });

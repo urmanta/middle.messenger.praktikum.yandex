@@ -1,7 +1,9 @@
 import { FormLogin, FormWrapper } from "../../components";
 import Block from "../../core/Block";
 
-type LoginPageProps = {}
+type LoginPageProps = {
+    className?: string
+}
 
 type LoginPageChildren = {
     FormLogin: FormWrapper,
@@ -26,7 +28,7 @@ export default class LoginPage extends Block<LoginPageProps, LoginPageChildren> 
 
     render() {
         return `
-            <div class="login-page">
+            <div class="login-page{{#if className}} {{ className }}{{/if}}">
                 {{{ FormLogin }}}
             </div>
         `

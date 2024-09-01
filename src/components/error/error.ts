@@ -1,7 +1,10 @@
 import Block from "../../core/Block";
 import { Link } from "../link";
 
-type ErrorProps = {}
+type ErrorProps = {
+    text: string,
+    code: string
+}
 
 type ErrorChildren = {
     LinkBackTo: Link,

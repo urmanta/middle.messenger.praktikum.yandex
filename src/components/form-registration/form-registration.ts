@@ -60,7 +60,7 @@ export default class FormRegistration extends Block<FormRegistrationProps, FormR
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(oldProps: FormRegistrationProps, newProps: FormRegistrationProps): boolean {
         if(oldProps === newProps) {
             return false;
         }

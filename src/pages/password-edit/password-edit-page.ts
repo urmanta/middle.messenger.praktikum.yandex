@@ -2,7 +2,9 @@ import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Password } from "../../components/password";
 
-type PasswordEditPageProps = {}
+type PasswordEditPageProps = {
+    className?: string
+}
 
 type PasswordEditPageChildren = {
     ProfileWrapper: Wrapper

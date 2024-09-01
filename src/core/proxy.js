@@ -22,11 +22,9 @@ function queryStringify(data) {
     }, '?');
 }
 
-class HTTPTransport {
+export class HTTPTransport {
     get = (url, options = {}) => {
         const newUrl = options.data ? `${url}${queryStringify(options.data)}` : url;
-
-        console.log('newUrl', newUrl);
 
         return this.request(newUrl, {...options, method: METHODS.GET}, options.timeout);
     };
@@ -82,7 +80,7 @@ class HTTPTransport {
     };
 }
 
-function fetchWithRetry(url, options) {
+export function fetchWithRetry(url, options) {
     const { retries = 3, ...fetchOptions } = options;
 
     if (retries <= 1) {

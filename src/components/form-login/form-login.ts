@@ -48,7 +48,7 @@ export default class FormLogin extends Block<FormLoginProps, FormLoginChildren> 
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(oldProps: FormLoginProps, newProps: FormLoginProps): boolean {
         if(oldProps === newProps) {
             return false;
         }

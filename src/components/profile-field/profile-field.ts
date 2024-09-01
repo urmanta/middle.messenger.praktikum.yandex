@@ -11,7 +11,7 @@ type ProfileFieldProps = {
     title: string,
     label?: string,
     error?: boolean,
-    errorText?: string | null,
+    errorText?: string | undefined,
     'align-right'?: boolean,
     onBlur: (e: Event) => void,
 }
@@ -39,7 +39,7 @@ export default class ProfileField extends Block<ProfileFieldProps, ProfileFieldC
         })
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(oldProps: ProfileFieldProps, newProps: ProfileFieldProps): boolean {
         if(oldProps === newProps) {
             return false;
         }

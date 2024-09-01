@@ -1,16 +1,18 @@
 import Block from "../../core/Block";
 import { ChatItem } from "../chat-item";
 
-type ChatListProps = {}
+type ChatListProps = {
+    className?: string
+}
 
 type ChatListChildren = {
     ChatItems: ChatItem[],
 }
 
 const chatStub = [
-    { name: 'Rainbow Dash', message: 'Дружба – это магия', unread: '2', date: '28.08.2024', avatar: ''},
+    { name: 'Rainbow Dash', message: 'Дружба – это магия', unread: 2, date: '28.08.2024', avatar: ''},
     { name: 'Applejack', message:'Отлично, сахарок!', date: '27.08.2024', avatar: ''},
-    { name: 'Pinkie Pie', message:'О, я никогда не уезжаю из дома без своей пушки для праздника', unread: '4', date: '24.08.2024', avatar: ''},
+    { name: 'Pinkie Pie', message:'О, я никогда не уезжаю из дома без своей пушки для праздника', unread: 4, date: '24.08.2024', avatar: ''},
 ]
 
 class ChatList extends Block<ChatListProps, ChatListChildren> {

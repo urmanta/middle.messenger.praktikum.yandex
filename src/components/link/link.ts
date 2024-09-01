@@ -2,18 +2,16 @@ import Block from "../../core/Block";
 
 type LinkProps = {
     page: string,
-    label: string
+    label: string,
+    className?: string
 }
 
-type LinkChildren = {}
+type LinkChildren = object
 
 class Link extends Block<LinkProps, LinkChildren> {
-    constructor(props: any) {
+    constructor(props: LinkProps) {
         super({
-            ...props,
-            events: {
-                click: props.onClick
-            }
+            ...props
         })
     }
 

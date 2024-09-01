@@ -28,7 +28,7 @@ class MessageField extends Block<MessageFieldProps, MessageFieldChildren> {
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(oldProps: MessageFieldProps, newProps: MessageFieldProps): boolean {
         if(oldProps === newProps) {
             return false;
         }

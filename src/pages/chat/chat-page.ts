@@ -1,7 +1,9 @@
 import { Link, Search, ChatList, MessageField } from "../../components";
 import Block from "../../core/Block";
 
-type ChatPageProps = {}
+type ChatPageProps = {
+    className?: string
+}
 
 type ChatPageChildren = {
     ToLogin: Link,
@@ -31,7 +33,7 @@ export default class ChatPage extends Block<ChatPageProps, ChatPageChildren> {
 
     render() {
         return `
-            <div class="chat-page">
+            <div class="chat-page{{#if className}} {{ className }}{{/if}}">
                 <div class="chat-page__wrapper">
                     <aside class="chat-page__sidebar">
                         <div class="chat-page__header" >

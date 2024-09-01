@@ -1,7 +1,9 @@
 import Block from "../../core/Block";
 import { Error } from "../../components/error";
 
-type NotFoundProps = {}
+type NotFoundProps = {
+    className?: string
+}
 
 type NotFoundChildren = {
     ErrorBlock: Error,

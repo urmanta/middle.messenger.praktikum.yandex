@@ -5,11 +5,11 @@ type ChatItemProps = {
     name: string,
     date: string,
     message: string,
-    unread: number,
+    unread: number | undefined,
 }
 
-class ChatItem extends Block<ChatItemProps, {}> {
-    constructor(props:any) {
+class ChatItem extends Block<ChatItemProps, object> {
+    constructor(props: ChatItemProps) {
         super(props)
     }
 

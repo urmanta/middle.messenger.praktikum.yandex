@@ -1,7 +1,9 @@
 import Block from "../../core/Block";
 import { Error } from "../../components/error";
 
-type ServerErrorProps = {}
+type ServerErrorProps = {
+    className?: string
+}
 
 type ServerErrorChildren = {
     ErrorBlock: Error,

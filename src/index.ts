@@ -1,15 +1,20 @@
 import Handlebars from 'handlebars';
 import * as Pages from './pages';
+import Block from './core/Block';
 
-const pages: {[index: string]:any[]} = {
-  'chat': [ Pages.ChatPage ],
-  'login': [ Pages.LoginPage ],
-  'registration': [ Pages.RegistrationPage ],
-  'profile': [ Pages.ProfilePage ],
-  'profile-edit': [ Pages.ProfileEditPage ],
-  'password-edit': [ Pages.PasswordEditPage ],
-  '404': [ Pages.NotFound ],
-  '500': [ Pages.ServerError ],
+interface PageComponent<P extends Record<string, unknown> = Record<string, unknown>> {
+  new (props: P): Block<P>;
+}
+
+const pages: Record<string, [PageComponent, Record<string, unknown>]> = {
+  'chat': [ Pages.ChatPage as PageComponent, {} ],
+  'login': [ Pages.LoginPage as PageComponent, {} ],
+  'registration': [ Pages.RegistrationPage as PageComponent, {} ],
+  'profile': [ Pages.ProfilePage as PageComponent, {} ],
+  'profile-edit': [ Pages.ProfileEditPage as PageComponent, {} ],
+  'password-edit': [ Pages.PasswordEditPage as PageComponent, {} ],
+  '404': [ Pages.NotFound as PageComponent, {} ],
+  '500': [ Pages.ServerError as PageComponent, {} ],
 };
 
 function navigate(page: string) {
@@ -20,7 +25,8 @@ function navigate(page: string) {
   if(source instanceof Object) {
     const page = new source(context);
     container.innerHTML = '';
-    container.append(page.getContent());
+    const pageContent = page.getContent();
+    if (pageContent) {container.append(pageContent)};
     page.dispatchComponentDidMount();
     return;
   }

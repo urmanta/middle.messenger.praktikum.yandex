@@ -28,13 +28,13 @@
       text-align: right;
     }
 
-    &:read-only:focus-visible {
-      border-color: $divider-line-color;
-    }
-
     &:focus-visible {
       outline: none;
       border-color: $link-color;
+    }
+
+    &:read-only:focus-visible {
+      border-color: $divider-line-color;
     }
 
     &:not(:placeholder-shown) + .input__label,

@@ -2,14 +2,16 @@ import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
 
-type ProfileEditPageProps = {}
+type ProfileEditPageProps = {
+    className?: string
+}
 
 type ProfileEditPageChildren = {
     ProfileWrapper: Wrapper
 }
 
 export default class ProfileEditPage extends Block<ProfileEditPageProps, ProfileEditPageChildren> {
-    constructor(props: any) {
+    constructor(props: ProfileEditPageProps) {
         super({
             ...props,
             ProfileWrapper: new Wrapper({

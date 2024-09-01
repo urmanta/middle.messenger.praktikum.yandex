@@ -65,7 +65,7 @@ export default class Profile extends Block<ProfileProps, ProfileChildren> {
         }
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(oldProps: ProfileProps, newProps: ProfileProps): boolean {
         if(oldProps === newProps) {
             return false;
         }

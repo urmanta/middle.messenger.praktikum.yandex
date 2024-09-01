@@ -2,7 +2,9 @@ import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
 
-type ProfilePageProps = {}
+type ProfilePageProps = {
+    className?: string
+}
 
 type ProfilePageChildren = {
     ProfileWrapper: Wrapper

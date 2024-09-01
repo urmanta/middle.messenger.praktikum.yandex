@@ -42,7 +42,7 @@ class InputElement extends Block<InputElementProps, InputElementChildren> {
         })
     }
 
-    componentDidUpdate(oldProps: any, newProps: any): boolean {
+    componentDidUpdate(oldProps: InputElementProps, newProps: InputElementProps): boolean {
         if(oldProps === newProps) {
             return false;
         }

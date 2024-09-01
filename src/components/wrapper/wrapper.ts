@@ -1,7 +1,11 @@
 import Block from "../../core/Block";
-import {Avatar} from "../avatar";
+import { Avatar } from "../avatar";
+import { Password } from "../password";
+import { Profile } from "../profile";
 
-type WrapperProps = {}
+type WrapperProps = {
+    ProfileBody: Password | Profile
+}
 
 type WrapperChildren = {
     Avatar: Avatar

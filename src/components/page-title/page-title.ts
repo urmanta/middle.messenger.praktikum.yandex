@@ -4,7 +4,7 @@ type PageTitleProps = {
     title: string
 }
 
-type PageTitleChildren = {}
+type PageTitleChildren = object
 
 class PageTitle extends Block<PageTitleProps, PageTitleChildren> {
     constructor(props: PageTitleProps) {
