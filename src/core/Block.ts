@@ -27,6 +27,8 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
 
     protected _id: number = Math.floor(100000 + Math.random() * 900000);
 
+    protected _needUpdate = true;
+
     public props: BlockProps;
 
     protected children: Children;
@@ -56,6 +58,18 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
                 this._element.addEventListener(eventName, events[eventName]);
             }
         });
+    }
+
+    private _removeEvents() {
+        const { events = {} } = this.props;
+
+        Object.keys(events).forEach((eventName) => {
+            this._element!.removeEventListener(eventName, events[eventName]);
+        });
+    }
+
+    protected removeEvents() {
+        this._removeEvents();
     }
 
     private _registerEvents(eventBus: EventBus): void {
@@ -133,7 +147,15 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
             return;
         }
 
+        const oldProps = { ...this.props };
+
         Object.assign(this.props, nextProps);
+
+        if (this._needUpdate) {
+            this._removeEvents();
+            this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, this.props);
+            this._needUpdate = false;
+        }
     };
 
     get element(): HTMLElement | null {
@@ -227,7 +249,10 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
             },
             set: (target: BlockProps, prop: string, value: unknown) => {
                 const oldTarget = { ...target };
-                (target as Record<string, unknown>)[prop] = value;
+                if (target[prop] != value) {
+                    (target as Record<string, unknown>)[prop] = value;
+                    this._needUpdate = true;
+                }
                 this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },
