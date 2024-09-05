@@ -1,9 +1,7 @@
 export { Button } from './button';
 export { ChatItem } from './chat-item';
 export { ChatList } from './chat-list';
-export { Dialog } from './dialog';
 export { Input } from './input';
-export { InputField } from './input-field';
 export { ProfileField } from './profile-field';
 export { Link } from './link';
 export { PageTitle } from './page-title';
@@ -11,3 +9,8 @@ export { Search } from './search';
 export { Avatar } from './avatar';
 export { Wrapper } from './wrapper';
 export { Error } from './error';
+export { FormLogin } from './form-login';
+export { FormRegistration } from './form-registration';
+export { FormWrapper } from './form-wrapper';
+export { Password } from './password';
+export { MessageField } from './message-field';

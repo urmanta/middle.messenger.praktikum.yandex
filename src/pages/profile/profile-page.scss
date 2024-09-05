@@ -13,19 +13,17 @@
     color: $title-color;
     font: $font-title;
     margin: 20px 0;
-  }
-
-  &__data-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 510px;
-    margin: 0 auto;
+    height: 16px;
   }
 
   &__data {
     margin-bottom: 60px;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__input {
+    margin-top: 16px;
     width: 100%;
   }
 

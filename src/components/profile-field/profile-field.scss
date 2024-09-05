@@ -5,6 +5,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 16px;
+  width: 100%;
 
   &__title {
     position: absolute;
@@ -17,8 +19,16 @@
   }
 
   input {
+    width: 100%;
     padding-left: 100px;
     font: $font-regular;
     color: $text-light-color;
+    text-align: right;
+  }
+
+  .input__text-error {
+    transform: translateY(2px);
+    position: absolute;
+    right: 0;
   }
 }

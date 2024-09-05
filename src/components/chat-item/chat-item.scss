@@ -16,7 +16,6 @@
       "a n n" 18px
       "a m u" 1fr
       / 47px 1fr 50px;
-
     gap: 0 10px;
     padding: 12px 10px;
     box-sizing: border-box;
@@ -45,6 +44,8 @@
   }
 
   &__date {
+    grid-area: n;
+    place-self: center end;
     float: right;
     font: $font-nano;
   }
@@ -65,13 +66,13 @@
 
   &__unread {
     grid-area: u;
-    margin-top: 14px;
+    margin-top: 4px;
     height: 20px;
     width: 20px;
     font: $font-micro;
     background: $button-bgcolor;
     color: $button-color;
-    place-self: end;
+    place-self: center end;
     border-radius: 50%;
     display: flex;
     justify-content: center;

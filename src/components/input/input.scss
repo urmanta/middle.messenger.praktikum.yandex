@@ -3,6 +3,17 @@
 .input {
   height: 26px;
 
+  &__label {
+    transform: translateY(-21px);
+    color: $text-light-color;
+    font-size: 13px;
+    font-weight: 500;
+    user-select: none;
+    transition:
+            font-size 0.5s,
+            transform 0.5s;
+  }
+
   &__element {
     border: none;
     padding: 0;
@@ -17,13 +28,31 @@
       text-align: right;
     }
 
-    &:read-only:focus-visible {
-      border-color: $divider-line-color;
-    }
-
     &:focus-visible {
       outline: none;
       border-color: $link-color;
     }
+
+    &:read-only:focus-visible {
+      border-color: $divider-line-color;
+    }
+
+    &:not(:placeholder-shown) + .input__label,
+    &:focus + .input__label {
+      transform: translateY(-36px);
+      font-size: 9px;
+    }
+  }
+
+  &__text-error {
+    transform: translateY(-12px);
+    color: $text-red;
+    font-size: 8px;
+    font-weight: 400;
+    display: none;
+  }
+
+  &__error .input__text-error {
+    display: block;
   }
 }
