@@ -1,6 +1,7 @@
-import Block from "../../core/Block";
+import Block, { Props } from "../../core/Block";
+import { withRouter } from "../../utils";
 
-type LinkProps = {
+interface LinkProps extends Props {
     page: string,
     label: string,
     className?: string
@@ -8,20 +9,23 @@ type LinkProps = {
 
 type LinkChildren = object
 
-class Link extends Block<LinkProps, LinkChildren> {
+export class Link extends Block<LinkProps, LinkChildren> {
     constructor(props: LinkProps) {
         super({
-            ...props
+            ...props,
+            events: {
+                click: () => this.props.router!.go(props.page)
+            }
         })
     }
 
     render(): string {
         return `
-            <a class="link{{#if className}} {{className}}{{/if}}" page={{page}} >
+            <a class="link{{#if className}} {{className}}{{/if}}">
                 {{label}}
             </a>
         `
     }
 }
 
-export default Link;
+export default withRouter<LinkProps>(Link);

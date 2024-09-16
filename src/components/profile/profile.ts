@@ -1,11 +1,11 @@
-import Block from "../../core/Block";
+import Block, { Props } from "../../core/Block";
 import { Button } from "../button";
 import { ProfileField } from "../profile-field";
-import { validateEmail, validateLogin, validatePhone, validateName } from "../../utils";
-import {Link} from "../link";
-import {Input} from "../input";
+import { validateEmail, validateLogin, validatePhone, validateName, withRouter } from "../../utils";
+import { Link } from "../link";
+import { Input } from "../input";
 
-type ProfileProps = {
+interface ProfileProps extends Props {
     mail: string,
     login: string,
     first_name: string,
@@ -24,12 +24,12 @@ type ProfileChildren = {
     DisplayNameInput: ProfileField,
     PhoneInput: ProfileField,
     SaveButton: Button,
-    EditProfileLink: Link,
-    EditPasswordLink: Link,
-    LogOutLink: Link
+    EditProfileLink: typeof Link,
+    EditPasswordLink: typeof Link,
+    LogOutLink: typeof Link
 }
 
-export default class Profile extends Block<ProfileProps, ProfileChildren> {
+export class ProfileComponent extends Block<ProfileProps, ProfileChildren> {
     constructor(props: ProfileProps) {
         super(props);
     }
@@ -46,9 +46,9 @@ export default class Profile extends Block<ProfileProps, ProfileChildren> {
         const DisplayNameInput = new ProfileField({title: 'Имя в чате', name: 'display_name', value: this.props.display_name, onBlur: (e: Event) => onChangeBind(e, validateName), readonly: !this.props.isEditMode});
         const PhoneInput = new ProfileField({title: 'Телефон', name: 'phone', value: this.props.phone, onBlur: (e: Event) => onChangeBind(e, validatePhone), readonly: !this.props.isEditMode});
         const SaveButton = new Button({label: 'Сохранить', page: 'profile', className: 'profile-page__save-button', onClick: onSaveBind, disabled: !this.props.isFormValid});
-        const EditProfileLink = new Link({label: 'Изменить данные', page: 'profile-edit'});
-        const EditPasswordLink = new Link({label: 'Изменить пароль', page: 'password-edit'});
-        const LogOutLink = new Link({label: 'Выйти', page: 'login'});
+        const EditProfileLink = new Link({label: 'Изменить данные', page: '/settings-edit'});
+        const EditPasswordLink = new Link({label: 'Изменить пароль', page: '/settings-password-edit'});
+        const LogOutLink = new Link({label: 'Выйти', page: '/'});
 
         this.children = {
             ...this.children,
@@ -92,6 +92,7 @@ export default class Profile extends Block<ProfileProps, ProfileChildren> {
     onSave() {
         if (this.props.isFormValid) {
             console.log('Данные формы валидны', this.getFormData());
+            this.props.router!.go('/settings');
         } else {
             console.log('Данные формы невалидны', this.getFormData());
         }
@@ -151,3 +152,6 @@ export default class Profile extends Block<ProfileProps, ProfileChildren> {
         )
     }
 }
+
+export default withRouter<ProfileProps>(ProfileComponent);
+

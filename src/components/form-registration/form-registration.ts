@@ -1,10 +1,10 @@
-import Block from "../../core/Block";
+import Block, { Props } from "../../core/Block";
 import { Button } from "../button";
 import { Input } from "../input";
 import { Link } from "../link";
 import { validateEmail, validateLogin, validatePassword, validatePhone, validateName } from "../../utils";
 
-type FormRegistrationProps = {
+interface FormRegistrationProps extends Props {
     email?: string,
     login?: string,
     first_name?: string,
@@ -24,7 +24,7 @@ type FormRegistrationChildren = {
     InputPassword: Input,
     InputPasswordConfirm: Input,
     ButtonRegistrate: Button,
-    ButtonLogin: Link
+    ButtonLogin: typeof Link
 }
 
 export default class FormRegistration extends Block<FormRegistrationProps, FormRegistrationChildren> {
@@ -44,7 +44,7 @@ export default class FormRegistration extends Block<FormRegistrationProps, FormR
         const InputPassword = new Input({label: 'Пароль', name: 'password', onBlur: (e: Event) => onChangeBind(e, validatePassword), className: 'login-page__input', type: 'password'});
         const InputPasswordConfirm = new Input({label: 'Пароль еще раз', name: 'password_confirm', onBlur: (e: Event) => onChangeBind(e, validatePassword), className: 'login-page__input', type: 'password'});
         const ButtonRegistrate = new Button({label: 'Зарегистрироваться', type: 'primary', page: 'chat', onClick: onSigninBind, disabled: !this.props.isFormValid});
-        const ButtonLogin = new Link({label: 'Войти', page: 'login'});
+        const ButtonLogin = new Link({label: 'Войти', page: '/'});
 
         this.children = {
             ...this.children,

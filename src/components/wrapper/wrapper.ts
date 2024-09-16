@@ -1,28 +1,37 @@
-import Block from "../../core/Block";
+import Block, { Props } from "../../core/Block";
 import { Avatar } from "../avatar";
 import { Password } from "../password";
-import { Profile } from "../profile";
+import { ProfileComponent } from "../profile";
+import { withRouter } from "../../utils";
 
-type WrapperProps = {
-    ProfileBody: Password | Profile
+interface WrapperProps extends Props {
+    ProfileBody: Password | ProfileComponent
 }
 
 type WrapperChildren = {
     Avatar: Avatar
 }
 
-export default class Wrapper extends Block<WrapperProps, WrapperChildren> {
+export class WrapperComponent extends Block<WrapperProps, WrapperChildren> {
     constructor(props: WrapperProps) {
         super({
             ...props,
-            Avatar: new Avatar({})
+            Avatar: new Avatar({}),
+            events: {
+                click: (e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.tagName === 'ASIDE') {
+                        this.props.router!.go('/messenger')
+                    }
+                }
+            }
         });
     }
 
     render() {
         return (
             `<div class="wrapper">
-                <div class="wrapper__sidebar" page="chat"></div>
+                <aside class="wrapper__sidebar"></aside>
                 <div class="wrapper__block">
                     <div class="profile__wrapper">
                         {{{ Avatar }}}
@@ -33,3 +42,5 @@ export default class Wrapper extends Block<WrapperProps, WrapperChildren> {
         )
     }
 }
+
+export default withRouter<WrapperProps>(WrapperComponent);

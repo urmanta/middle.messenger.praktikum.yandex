@@ -1,8 +1,13 @@
 import EventBus, { EventCallback } from './EventBus';
 import Handlebars from 'handlebars';
+import Router from "./Router";
+
+export interface PageComponent<P extends Props = { [key: string]: unknown }> {
+    new (props: P): Block<P>;
+}
 
 export type RefType = {
-    [key: string]: Block<Props>
+    [key: string]: PageComponent
 } | object
 
 type EventHandlers = {
@@ -11,6 +16,7 @@ type EventHandlers = {
 
 export interface Props {
     [key: string]: unknown;
+    router?: Router;
     events?: EventHandlers;
     attr?: { [key: string]: string | boolean };
 }
@@ -20,6 +26,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_CDU: 'flow:component-did-update',
+        FLOW_UNM: 'flow:component-un-mount',
         FLOW_RENDER: 'flow:render',
     };
 
@@ -76,6 +83,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this) as EventCallback);
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this) as EventCallback);
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this) as EventCallback);
+        eventBus.on(Block.EVENTS.FLOW_UNM, this._componentWillUnmount.bind(this) as EventCallback);
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this) as EventCallback);
     }
 
@@ -109,6 +117,24 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         if (oldProps === newProps) return false;
         return true;
     }
+
+    private _componentWillUnmount() {
+        this._removeEvents();
+
+        this.componentWillUnmount()
+
+        Object.values(this.children).forEach((child) => {
+            if (Array.isArray(child)) {
+                child.forEach((subChild) => {
+                    subChild._componentWillUnmount();
+                });
+            } else {
+                child._componentWillUnmount();
+            }
+        });
+    }
+
+    protected componentWillUnmount() {}
 
     private _getChildrenPropsAndProps(propsAndChildren: Partial<Props & Children> = {}): {
         children: Children,
@@ -269,11 +295,12 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
     public show(): void {
         const content = this.getContent();
         if (content) {
-            content.style.display = 'block';
+            content.style.display = 'flex';
         }
     }
 
     public hide(): void {
+        this.eventBus().emit(Block.EVENTS.FLOW_UNM);
         const content = this.getContent();
         if (content) {
             content.style.display = 'none';

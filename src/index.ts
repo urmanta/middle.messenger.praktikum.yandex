@@ -1,48 +1,30 @@
-import Handlebars from 'handlebars';
 import * as Pages from './pages';
-import Block from './core/Block';
+import Router from './core/Router';
+import Store from './core/Store';
 
-interface PageComponent<P extends Record<string, unknown> = Record<string, unknown>> {
-  new (props: P): Block<P>;
+declare global {
+    export type Keys<T extends Record<string, unknown>> = keyof T;
+    export type Values<T extends Record<string, unknown>> = T[Keys<T>];
+    interface Window {
+        router: Router;
+        store: Store;
+    }
 }
 
-const pages: Record<string, [PageComponent, Record<string, unknown>]> = {
-  'chat': [ Pages.ChatPage as PageComponent, {} ],
-  'login': [ Pages.LoginPage as PageComponent, {} ],
-  'registration': [ Pages.RegistrationPage as PageComponent, {} ],
-  'profile': [ Pages.ProfilePage as PageComponent, {} ],
-  'profile-edit': [ Pages.ProfileEditPage as PageComponent, {} ],
-  'password-edit': [ Pages.PasswordEditPage as PageComponent, {} ],
-  '404': [ Pages.NotFound as PageComponent, {} ],
-  '500': [ Pages.ServerError as PageComponent, {} ],
-};
+const router = new Router('#app');
 
-function navigate(page: string) {
+window.router = router;
 
-  const [ source, context ] = pages[page];
-  const container = document.getElementById('app')!;
+router
+    .use('/', Pages.LoginPage)
+    .use('/login', Pages.LoginPage)
+    .use('/sign-up', Pages.RegistrationPage)
+    .use('/settings', Pages.ProfilePage)
+    .use('/settings-edit', Pages.ProfileEditPage)
+    .use('/settings-password-edit', Pages.PasswordEditPage)
+    .use('/messenger', Pages.ChatPage)
+    .use('/404', Pages.NotFound)
+    .use('/500', Pages.ServerError)
+    .error(Pages.NotFound)
+    .start();
 
-  if(source instanceof Object) {
-    const page = new source(context);
-    container.innerHTML = '';
-    const pageContent = page.getContent();
-    if (pageContent) {container.append(pageContent)};
-    page.dispatchComponentDidMount();
-    return;
-  }
-
-  container.innerHTML = Handlebars.compile(source)(context);
-}
-
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
-
-document.addEventListener('click', e => {
-  const el = e.target as HTMLInputElement;
-  const page = el?.getAttribute('page');
-  if (page) {
-    navigate(page);
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
-});

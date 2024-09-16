@@ -1,10 +1,10 @@
-import Block from "../../core/Block";
+import Block, { Props } from "../../core/Block";
 import { Button } from "../button";
 import { Input } from "../input";
 import { Link } from "../link";
-import { validateLogin, validatePassword } from "../../utils";
+import { validateLogin, validatePassword, withRouter } from "../../utils";
 
-type FormLoginProps = {
+interface FormLoginProps extends Props {
     isFormValid: boolean,
     login: string | undefined,
     password: string | undefined,
@@ -16,12 +16,10 @@ type FormLoginChildren = {
     InputLogin: Input,
     FormPassword: Input,
     ButtonLogin: Button,
-    ButtonCreateAccount: Link,
-    NotFound: Link,
-    ServerError: Link
+    ButtonCreateAccount: typeof Link
 }
 
-export default class FormLogin extends Block<FormLoginProps, FormLoginChildren> {
+export class FormLoginComponent extends Block<FormLoginProps, FormLoginChildren> {
     constructor(props: FormLoginProps) {
         super(props);
     }
@@ -33,18 +31,14 @@ export default class FormLogin extends Block<FormLoginProps, FormLoginChildren> 
         const InputLogin = new Input({label: 'Логин', name: 'login', value: undefined, onBlur: (e: Event) => onChangeBind(e, validateLogin), className: 'login-page__input'});
         const FormPassword = new Input({label: 'Пароль', name: 'password', value: undefined, type: 'password', onBlur: (e: Event) => onChangeBind(e, validatePassword), className: 'login-page__input'});
         const ButtonLogin = new Button({label: 'Авторизироваться', type: 'primary', page: 'chat', onClick: onLoginBind, disabled: !this.props.isFormValid});
-        const ButtonCreateAccount = new Link({label: 'Нет аккаунта?', page: 'registration'});
-        const NotFound = new Link({label: '404', page: '404'});
-        const ServerError = new Link({label: '500', page: '500'});
+        const ButtonCreateAccount = new Link({label: 'Нет аккаунта?', page: '/sign-up'});
 
         this.children = {
             ...this.children,
             InputLogin,
             FormPassword,
             ButtonLogin,
-            ButtonCreateAccount,
-            NotFound,
-            ServerError
+            ButtonCreateAccount
         }
     }
 
@@ -91,6 +85,7 @@ export default class FormLogin extends Block<FormLoginProps, FormLoginChildren> 
     onLogin() {
         if (this.checkFormData()) {
             console.log('Данные формы валидны', this.getFormData());
+            this.props.router!.go('/messenger');
         } else {
             console.log('Данные формы невалидны', this.getFormData());
         }
@@ -111,3 +106,5 @@ export default class FormLogin extends Block<FormLoginProps, FormLoginChildren> 
         `)
     }
 }
+
+export default withRouter(FormLoginComponent);

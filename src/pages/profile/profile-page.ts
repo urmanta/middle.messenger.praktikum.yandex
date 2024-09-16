@@ -7,7 +7,7 @@ type ProfilePageProps = {
 }
 
 type ProfilePageChildren = {
-    ProfileWrapper: Wrapper
+    ProfileWrapper: typeof Wrapper
 }
 
 export default class ProfilePage extends Block<ProfilePageProps, ProfilePageChildren> {
