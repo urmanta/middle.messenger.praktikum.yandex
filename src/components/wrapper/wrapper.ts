@@ -1,18 +1,18 @@
 import Block, { Props } from "../../core/Block";
 import { Avatar } from "../avatar";
 import { Password } from "../password";
-import { ProfileComponent } from "../profile";
+import { Profile } from "../profile";
 import { withRouter } from "../../utils";
 
 interface WrapperProps extends Props {
-    ProfileBody: Password | ProfileComponent
+    ProfileBody: InstanceType<typeof Password> | InstanceType<typeof Profile>
 }
 
 type WrapperChildren = {
     Avatar: Avatar
 }
 
-export class WrapperComponent extends Block<WrapperProps, WrapperChildren> {
+class Wrapper extends Block<WrapperProps, WrapperChildren> {
     constructor(props: WrapperProps) {
         super({
             ...props,
@@ -43,4 +43,4 @@ export class WrapperComponent extends Block<WrapperProps, WrapperChildren> {
     }
 }
 
-export default withRouter<WrapperProps>(WrapperComponent);
+export default withRouter<WrapperProps>(Wrapper);

@@ -16,10 +16,10 @@ type FormLoginChildren = {
     InputLogin: Input,
     FormPassword: Input,
     ButtonLogin: Button,
-    ButtonCreateAccount: typeof Link
+    ButtonCreateAccount: InstanceType<typeof Link>
 }
 
-export class FormLoginComponent extends Block<FormLoginProps, FormLoginChildren> {
+class FormLogin extends Block<FormLoginProps, FormLoginChildren> {
     constructor(props: FormLoginProps) {
         super(props);
     }
@@ -107,4 +107,4 @@ export class FormLoginComponent extends Block<FormLoginProps, FormLoginChildren>
     }
 }
 
-export default withRouter(FormLoginComponent);
+export default withRouter(FormLogin);

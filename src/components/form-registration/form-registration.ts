@@ -24,7 +24,7 @@ type FormRegistrationChildren = {
     InputPassword: Input,
     InputPasswordConfirm: Input,
     ButtonRegistrate: Button,
-    ButtonLogin: typeof Link
+    ButtonLogin: InstanceType<typeof Link>
 }
 
 export default class FormRegistration extends Block<FormRegistrationProps, FormRegistrationChildren> {

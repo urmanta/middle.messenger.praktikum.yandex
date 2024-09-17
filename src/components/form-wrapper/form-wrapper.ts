@@ -1,11 +1,11 @@
 import Block from "../../core/Block";
 import { PageTitle } from "../page-title";
-import { FormRegistration, FormLoginComponent } from "../../components";
+import { FormRegistration, FormLogin } from "../../components";
 
 
 type FormWrapperProps = {
     title: string,
-    FormBody: FormLoginComponent | FormRegistration,
+    FormBody: InstanceType<typeof FormLogin> | FormRegistration,
 }
 
 type FormWrapperChildren = {

@@ -24,12 +24,12 @@ type ProfileChildren = {
     DisplayNameInput: ProfileField,
     PhoneInput: ProfileField,
     SaveButton: Button,
-    EditProfileLink: typeof Link,
-    EditPasswordLink: typeof Link,
-    LogOutLink: typeof Link
+    EditProfileLink: InstanceType<typeof Link>,
+    EditPasswordLink: InstanceType<typeof Link>,
+    LogOutLink: InstanceType<typeof Link>
 }
 
-export class ProfileComponent extends Block<ProfileProps, ProfileChildren> {
+class Profile extends Block<ProfileProps, ProfileChildren> {
     constructor(props: ProfileProps) {
         super(props);
     }
@@ -153,5 +153,5 @@ export class ProfileComponent extends Block<ProfileProps, ProfileChildren> {
     }
 }
 
-export default withRouter<ProfileProps>(ProfileComponent);
+export default withRouter<ProfileProps>(Profile);
 

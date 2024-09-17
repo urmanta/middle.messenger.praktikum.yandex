@@ -7,7 +7,7 @@ type ErrorProps = {
 }
 
 type ErrorChildren = {
-    LinkBackTo: typeof Link,
+    LinkBackTo: InstanceType<typeof Link>,
 }
 
 class Error extends Block<ErrorProps, ErrorChildren> {

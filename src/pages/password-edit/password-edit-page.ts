@@ -7,7 +7,7 @@ type PasswordEditPageProps = {
 }
 
 type PasswordEditPageChildren = {
-    ProfileWrapper: typeof Wrapper
+    ProfileWrapper: InstanceType<typeof Wrapper>
 }
 
 export default class PasswordEditPage extends Block<PasswordEditPageProps, PasswordEditPageChildren> {

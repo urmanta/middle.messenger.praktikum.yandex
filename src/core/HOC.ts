@@ -1,6 +1,5 @@
 import { StoreEvents } from "./Store";
-import { PageComponent } from './Route';
-import { Props } from './Block';
+import { Props, PageComponent } from './Block';
 import isEqual from '../utils/isEqual';
 
 type StateType = {

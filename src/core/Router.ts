@@ -1,4 +1,5 @@
-import Route, { PageComponent } from './Route.ts';
+import Route from './Route';
+import { PageComponent } from './Block';
 
 class Router {
     private static __instance: Router | null = null;

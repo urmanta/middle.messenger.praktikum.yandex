@@ -7,7 +7,7 @@ type ProfileEditPageProps = {
 }
 
 type ProfileEditPageChildren = {
-    ProfileWrapper: Wrapper
+    ProfileWrapper: InstanceType<typeof Wrapper>
 }
 
 export default class ProfileEditPage extends Block<ProfileEditPageProps, ProfileEditPageChildren> {

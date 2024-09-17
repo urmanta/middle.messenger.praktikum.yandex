@@ -6,7 +6,7 @@ type ChatPageProps = {
 }
 
 type ChatPageChildren = {
-    ToProfile: typeof Link,
+    ToProfile: InstanceType<typeof Link>,
     SearchBlock: Search,
     ChatListBlock: ChatList,
     MessageFieldBlock: MessageField
