@@ -13,7 +13,7 @@ type AddChatChildren = {
 export default class AddChat extends Block<Props, AddChatChildren> {
     chatName = '';
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
     }
 

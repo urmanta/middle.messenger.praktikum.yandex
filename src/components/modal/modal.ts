@@ -7,9 +7,7 @@ type ModalProps = {
     ModalBody: InstanceType<typeof AddChat> | InstanceType<typeof AddUser> | InstanceType<typeof DeleteUser>,
 }
 
-type ModalWrapperChildren = {}
-
-export default class Modal extends Block<ModalProps, ModalWrapperChildren> {
+export default class Modal extends Block<ModalProps, object> {
     constructor(props: ModalProps) {
         super({
             ...props,

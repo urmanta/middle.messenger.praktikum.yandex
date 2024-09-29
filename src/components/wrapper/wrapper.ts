@@ -7,7 +7,7 @@ interface WrapperProps extends Props {
     ProfileBody: InstanceType<typeof Password> | InstanceType<typeof Profile>
 }
 
-class Wrapper extends Block<WrapperProps, {}> {
+class Wrapper extends Block<WrapperProps, object> {
     constructor(props: WrapperProps) {
         super({
             ...props,

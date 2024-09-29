@@ -7,6 +7,7 @@ const initApp = async () => {
         me = await getUser();
     } catch (error) {
         window.router.go('/');
+        console.log('error', error);
         return;
     }
 

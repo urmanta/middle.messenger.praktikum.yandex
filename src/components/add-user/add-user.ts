@@ -14,7 +14,7 @@ type AddUserChildren = {
 class AddUser extends Block<Props, AddUserChildren> {
     userID: number | undefined = undefined;
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
     }
 

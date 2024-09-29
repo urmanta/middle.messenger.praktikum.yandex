@@ -14,7 +14,7 @@ type DeleteUserChildren = {
 class DeleteUser extends Block<Props, DeleteUserChildren> {
     userID = 0;
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
     }
 

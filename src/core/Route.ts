@@ -8,7 +8,7 @@ class Route {
     _pathname: string;
     _blockClass: PageComponent;
     _props;
-    _block: Block<Record<string, unknown>, {}> | null;
+    _block: Block<Record<string, unknown>, object> | null;
 
     constructor(pathname: string, view: PageComponent, props: routeProps) {
         this._pathname = pathname;
@@ -25,7 +25,7 @@ class Route {
         return pathname === this._pathname;
     }
 
-    _renderDom(query: string , block: Block<Record<string, unknown>, {}>) {
+    _renderDom(query: string , block: Block<Record<string, unknown>, object>) {
         const root = document.querySelector(query);
         if (root) {
             root.innerHTML = '';

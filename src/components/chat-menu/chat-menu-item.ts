@@ -16,7 +16,6 @@ export default class  ChatMenuItem extends Block<ChatMenuItemProps, object> {
 
     }
 
-
     render(): string {
         return `
             <div class="chat-menu__item">{{{ content }}}</div>
