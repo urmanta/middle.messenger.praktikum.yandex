@@ -25,6 +25,7 @@ class Input extends Block<InputProps, object> {
                 name={{ name }}
                 value="{{#if value}}{{ value }}{{/if}}"
                 placeholder="{{#if placeholder}} {{ placeholder }}{{/if}}"
+                autocomplete="off"
                 {{#if readonly}} readonly{{/if}}
             />
         `

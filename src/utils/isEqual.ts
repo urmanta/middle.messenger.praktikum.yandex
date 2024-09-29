@@ -2,9 +2,16 @@ type PlainObject<T = any> = {
     [k in string]: T;
 };
 
+function isPlainObject(value: unknown): value is PlainObject {
+    return typeof value === 'object'
+        && value !== null
+        && value.constructor === Object
+        && Object.prototype.toString.call(value) === '[object Object]';
+}
+
 export default function isEqual(a: PlainObject, b: PlainObject): boolean {
     for (const key of Object.keys(a)) {
-        if (typeof a[key] === 'object' && typeof b[key] === 'object') {
+        if (isPlainObject(a[key]) && isPlainObject(b[key])) {
             if (isEqual(a[key], b[key])) continue;
             return false
         } else {

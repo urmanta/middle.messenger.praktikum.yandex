@@ -1,6 +1,8 @@
 import * as Pages from './pages';
 import Router from './core/Router';
 import Store from './core/Store';
+import WebSocketService from "./core/WebSocket";
+import { initApp } from './services/initApp';
 
 declare global {
     export type Keys<T extends Record<string, unknown>> = keyof T;
@@ -8,8 +10,18 @@ declare global {
     interface Window {
         router: Router;
         store: Store;
+        webSocket: WebSocketService;
     }
 }
+
+window.store = new Store({
+    loginField: null,
+    loginError: null,
+    chats: [],
+    messages: [],
+    user: null,
+    currentChat: null
+});
 
 const router = new Router('#app');
 
@@ -27,4 +39,6 @@ router
     .use('/500', Pages.ServerError)
     .error(Pages.NotFound)
     .start();
+
+document.addEventListener('DOMContentLoaded', () => initApp());
 

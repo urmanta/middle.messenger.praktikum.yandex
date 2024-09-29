@@ -3,6 +3,8 @@ import { Button } from "../button";
 import { Input } from "../input";
 import { Link } from "../link";
 import { validateEmail, validateLogin, validatePassword, validatePhone, validateName } from "../../utils";
+import { signup } from "../../services/auth";
+import { CreateUser } from "../../api/type";
 
 interface FormRegistrationProps extends Props {
     email?: string,
@@ -107,13 +109,15 @@ export default class FormRegistration extends Block<FormRegistrationProps, FormR
 
     onSignin() {
         if (this.props.isFormValid) {
+            const userData = this.getFormData() as CreateUser;
             console.log('Данные формы валидны', this.getFormData());
+            signup(userData).then(() => {
+                this.props.router!.go('/messenger');
+            });
         } else {
             console.log('Данные формы невалидны', this.getFormData());
         }
     }
-
-
 
     render() {
         return (`

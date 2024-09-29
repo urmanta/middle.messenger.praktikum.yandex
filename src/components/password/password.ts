@@ -3,6 +3,7 @@ import { ProfileField } from "../profile-field";
 import { Button } from "../button";
 import { validatePassword } from "../../utils";
 import {Input} from "../input";
+import { changePassword } from '../../services/profile';
 
 type PasswordProps = {
     oldPassword?: string,
@@ -66,7 +67,8 @@ export default class Password extends Block<PasswordProps, PasswordChildren> {
 
     onSave() {
         if (this.props.isFormValid) {
-            console.log('Данные формы валидны', this.getFormData());
+            const { oldPassword, newPassword } = this.getFormData() as { oldPassword: string, newPassword: string };
+            changePassword({ oldPassword, newPassword });
         } else {
             console.log('Данные формы невалидны', this.getFormData());
         }

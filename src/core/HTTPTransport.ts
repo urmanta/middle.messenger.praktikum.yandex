@@ -11,7 +11,9 @@ type Options = {
         [key: string]: string
     };
     timeout?: number;
-    data?: XMLHttpRequestBodyInit;
+    data?: {
+        [key: string]: unknown
+    };
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
@@ -20,7 +22,7 @@ export class HTTPTransport {
     private apiUrl: string = ''
 
     constructor(apiPath: string) {
-        this.apiUrl = `local${apiPath}`;
+        this.apiUrl = `https://ya-praktikum.tech/api/v2${apiPath}`;
     }
 
     get(url: string, options: OptionsWithoutMethod = {}): Promise<unknown> {
@@ -63,11 +65,13 @@ export class HTTPTransport {
             xhr.onerror = reject;
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
+            xhr.withCredentials = true;
+            xhr.responseType = 'json';
 
             if (method === METHODS.GET || !data) {
                 xhr.send();
             } else {
-                xhr.send(data);
+                xhr.send(JSON.stringify(data));
             }
         });
     };

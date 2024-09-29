@@ -1,0 +1,9 @@
+@import '../../assets/variables';
+
+.delete-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+  flex-grow: 1;
+}

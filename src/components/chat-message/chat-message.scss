@@ -1,0 +1,26 @@
+@import '../../assets/variables';
+
+.chat-message {
+  display: flex;
+  border-radius: 0 12px 12px 12px;
+  font: $chat-message-font;
+  color: $chat-message-login-color;
+  padding: 10px 40px 10px 10px;
+  margin-top: 10px;
+  position: relative;
+  background-color: $chat-message-bgcolor;
+
+  &__time {
+    font-size: 9px;
+    color: $chat-message-color;
+    position: absolute;
+    bottom: 5px;
+    right: 8px;
+  }
+
+  &--mine {
+    align-self: flex-end;
+    border-radius: 12px 12px 0 12px;
+    background-color: #FEF6FD;
+  }
+}

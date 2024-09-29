@@ -3,6 +3,7 @@ import { Button } from "../button";
 import { Input } from "../input";
 import { Link } from "../link";
 import { validateLogin, validatePassword, withRouter } from "../../utils";
+import { signin } from '../../services/auth';
 
 interface FormLoginProps extends Props {
     isFormValid: boolean,
@@ -85,7 +86,12 @@ class FormLogin extends Block<FormLoginProps, FormLoginChildren> {
     onLogin() {
         if (this.checkFormData()) {
             console.log('Данные формы валидны', this.getFormData());
-            this.props.router!.go('/messenger');
+            signin({
+                login: this.props.login as string,
+                password: this.props.password as string
+            }).then(() => {
+                this.props.router!.go('/messenger');
+            });
         } else {
             console.log('Данные формы невалидны', this.getFormData());
         }
@@ -100,8 +106,6 @@ class FormLogin extends Block<FormLoginProps, FormLoginChildren> {
                 </div>
                 {{{ ButtonLogin }}}
                 {{{ ButtonCreateAccount }}}
-                {{{ NotFound }}}
-                {{{ ServerError }}}
             </form>
         `)
     }

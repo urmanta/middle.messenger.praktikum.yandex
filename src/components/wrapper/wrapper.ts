@@ -1,5 +1,4 @@
 import Block, { Props } from "../../core/Block";
-import { Avatar } from "../avatar";
 import { Password } from "../password";
 import { Profile } from "../profile";
 import { withRouter } from "../../utils";
@@ -8,15 +7,10 @@ interface WrapperProps extends Props {
     ProfileBody: InstanceType<typeof Password> | InstanceType<typeof Profile>
 }
 
-type WrapperChildren = {
-    Avatar: Avatar
-}
-
-class Wrapper extends Block<WrapperProps, WrapperChildren> {
+class Wrapper extends Block<WrapperProps, {}> {
     constructor(props: WrapperProps) {
         super({
             ...props,
-            Avatar: new Avatar({}),
             events: {
                 click: (e) => {
                     const target = e.target as HTMLElement;

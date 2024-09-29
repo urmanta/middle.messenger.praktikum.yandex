@@ -12,7 +12,7 @@ export default class Avatar extends Block<AvatarProps, object> {
     render() {
         return (
             `<div class="avatar">
-                {{#if url}} <img src={{ url }} alt="">{{/if}}
+                {{#if url}} <img src=https://ya-praktikum.tech/api/v2/resources/{{ url }} alt="">{{/if}}
             </div>`
         )
     }

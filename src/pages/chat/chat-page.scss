@@ -51,6 +51,8 @@
 
   &__header {
     padding: 10px;
+    height: 52px;
+    box-sizing: border-box;
   }
 
   &__list {
@@ -61,5 +63,10 @@
     position: relative;
     flex: 1;
     background: rgba(256,256,256, 0.4);
+  }
+
+  &__add-chat {
+    text-align: center;
+    margin-top: 15px;
   }
 }

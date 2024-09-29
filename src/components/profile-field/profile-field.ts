@@ -13,7 +13,8 @@ type ProfileFieldProps = {
     error?: boolean,
     errorText?: string | undefined,
     'align-right'?: boolean,
-    onBlur: (e: Event) => void,
+    onBlur?: (e: Event) => void,
+    onInput?: (e: Event) => void,
 }
 
 type ProfileFieldChildren = {
@@ -30,6 +31,7 @@ export default class ProfileField extends Block<ProfileFieldProps, ProfileFieldC
                 name: props.name,
                 type: props.type,
                 onBlur: props.onBlur,
+                onInput: props.onInput,
                 className: 'profile-field__element',
                 readonly: props.readonly,
                 error: props.error || false,

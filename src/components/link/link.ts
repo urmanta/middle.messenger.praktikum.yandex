@@ -4,7 +4,8 @@ import { withRouter } from "../../utils";
 interface LinkProps extends Props {
     page: string,
     label: string,
-    className?: string
+    className?: string,
+    onClick?: (event: Event) => void
 }
 
 type LinkChildren = object
@@ -14,7 +15,10 @@ export class Link extends Block<LinkProps, LinkChildren> {
         super({
             ...props,
             events: {
-                click: () => this.props.router!.go(props.page)
+                click: (e) => {
+                    if (props.onClick) props.onClick(e);
+                    this.props.router!.go(props.page)
+                }
             }
         })
     }

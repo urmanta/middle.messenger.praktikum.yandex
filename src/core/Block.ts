@@ -110,12 +110,16 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         if (!response) {
             return;
         }
-        this._render();
+        this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
 
     protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-        if (oldProps === newProps) return false;
-        return true;
+        for (const propKey in newProps) {
+            if (oldProps[propKey] !== newProps[propKey]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private _componentWillUnmount() {
@@ -148,7 +152,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
             if (value instanceof Block) {
                 (children as Record<string, unknown>)[key] = value;
-            } else if (Array.isArray(value)) {
+            } else if (Array.isArray(value) && value.every((x) => x instanceof Block)) {
                 lists[key] = value;
             } else {
                 (props as Record<string, unknown>)[key] = value;

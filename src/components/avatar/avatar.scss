@@ -3,6 +3,12 @@
 .avatar {
   width: 130px;
   height: 130px;
+  overflow: hidden;
   border-radius: 65px;
   background: url('../../assets/icons/avatar.svg') center no-repeat $gray-light-color;
+  margin: auto;
+
+  img {
+    width: 130px;
+  }
 }
