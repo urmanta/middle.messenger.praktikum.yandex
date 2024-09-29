@@ -5,16 +5,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: 340px;
   min-height: 250px;
   padding: 20px 30px 40px;
   box-sizing: border-box;
-
   display: none;
   flex-direction: column;
   align-items: center;
-
   background: $dialog-bgcolor;
   box-shadow: $dialog-shadow;
   border-radius: 12px;

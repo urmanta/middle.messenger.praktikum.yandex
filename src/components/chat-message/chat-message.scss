@@ -2,7 +2,7 @@
 
 .chat-message {
   display: flex;
-  border-radius: 0 12px 12px 12px;
+  border-radius: 0 12px 12px;
   font: $chat-message-font;
   color: $chat-message-login-color;
   padding: 10px 40px 10px 10px;
@@ -20,7 +20,7 @@
 
   &--mine {
     align-self: flex-end;
-    border-radius: 12px 12px 0 12px;
+    border-radius: 12px 12px 0;
     background-color: #FEF6FD;
   }
 }
