@@ -24,4 +24,3 @@ export default class Modal extends Block<ModalProps, ModalWrapperChildren> {
         )
     }
 }
-

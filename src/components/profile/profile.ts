@@ -194,4 +194,3 @@ class Profile extends Block<ProfileProps, ProfileChildren> {
 }
 
 export default withRouter<ProfileProps>(Profile);
-
