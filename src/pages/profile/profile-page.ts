@@ -34,4 +34,3 @@ class ProfilePage extends Block<ProfilePageProps, ProfilePageChildren> {
 
 // @ts-ignore
 export default connect(({ user }) => ({ user }))(ProfilePage);
-
