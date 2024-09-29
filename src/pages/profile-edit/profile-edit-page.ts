@@ -33,5 +33,5 @@ class ProfileEditPage extends Block<ProfileEditPageProps, ProfileEditPageChildre
     }
 }
 
-// @ts-expect-error
+// @ts-expect-error: пу пу пу
 export default connect(({ user }) => ({ user }))(ProfileEditPage);

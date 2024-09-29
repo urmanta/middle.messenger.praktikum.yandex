@@ -32,5 +32,5 @@ class ProfilePage extends Block<ProfilePageProps, ProfilePageChildren> {
     }
 }
 
-// @ts-expect-error
+// @ts-expect-error: пу пу пу
 export default connect(({ user }) => ({ user }))(ProfilePage);

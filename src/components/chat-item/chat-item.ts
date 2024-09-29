@@ -68,5 +68,5 @@ class ChatItem extends Block<ChatItemProps, object> {
     }
 }
 
-// @ts-expect-error
+// @ts-expect-error: пу пу пу
 export default connect(({ currentChat, user }) => ({ currentChat, user }))(ChatItem);

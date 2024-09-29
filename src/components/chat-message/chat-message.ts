@@ -30,5 +30,5 @@ class ChatMessage extends Block<ChatMessageProps, object> {
     }
 }
 
-// @ts-expect-error
+// @ts-expect-error: пу пу пу
 export default connect(({ user }) => ({ user }))(ChatMessage);
