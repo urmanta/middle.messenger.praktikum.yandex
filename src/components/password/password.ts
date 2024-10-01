@@ -68,7 +68,9 @@ export default class Password extends Block<PasswordProps, PasswordChildren> {
     onSave() {
         if (this.props.isFormValid) {
             const { oldPassword, newPassword } = this.getFormData() as { oldPassword: string, newPassword: string };
-            changePassword({ oldPassword, newPassword });
+            changePassword({ oldPassword, newPassword }).catch(error => {
+                throw new Error(error)
+            });
         } else {
             console.log('Данные формы невалидны', this.getFormData());
         }

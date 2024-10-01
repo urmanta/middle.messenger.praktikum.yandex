@@ -47,6 +47,8 @@ class DeleteUser extends Block<Props, DeleteUserChildren> {
         deleteUser({chatId: chatId, users: [userId]}).then(() => {
             const parentNode = this.element?.parentNode as HTMLElement;
             parentNode.style.display = "none";
+        }).catch(error => {
+            throw new Error(error)
         });
     }
 

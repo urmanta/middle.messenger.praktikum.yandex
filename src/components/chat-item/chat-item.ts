@@ -23,7 +23,9 @@ class ChatItem extends Block<ChatItemProps, object> {
             events: {
                 click: () => {
                     if (window.webSocket) window.webSocket.disconnect();
-                    requestChatToken({id: props.id, userId: props.user.id});
+                    requestChatToken({id: props.id, userId: props.user.id}).catch(error => {
+                        throw new Error(error)
+                    });
                 }
             },
             date: props.last_message ? getDate(props.last_message.time) : ''
@@ -47,7 +49,7 @@ class ChatItem extends Block<ChatItemProps, object> {
                 <div class="chat-item__block{{#if isCurrent}} chat-item__block--current{{/if}}">
                     {{#if avatar}}
                     <div>
-                      <img class="chat-item__avatar" src={{ avatar }} alt="Аватар"><img>
+                      <img class="chat-item__avatar" src="https://ya-praktikum.tech/api/v2/resources/{{ avatar }}" alt="Аватар"><img>
                     </div>
                     {{else }}
                     <div class="chat-item__avatar"></div>

@@ -122,6 +122,8 @@ class Profile extends Block<ProfileProps, ProfileChildren> {
                 second_name,
                 display_name,
                 phone
+            }).catch(error => {
+                throw new Error(error)
             })
 
             this.props.router!.go('/settings');
@@ -131,7 +133,9 @@ class Profile extends Block<ProfileProps, ProfileChildren> {
     }
 
     onLogout() {
-        logout();
+        logout().catch(error => {
+            throw new Error(error)
+        });
     }
 
     onChange(e: Event, validateFunc: (str: string) => string | null) {

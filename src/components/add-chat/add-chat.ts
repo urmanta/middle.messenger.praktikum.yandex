@@ -36,11 +36,12 @@ export default class AddChat extends Block<Props, AddChatChildren> {
     onChangeInput(e: Event) {
         const input = e.target as HTMLInputElement;
         this.chatName = input.value;
-        console.log('this.chatName', this.chatName);
     }
 
     createChat() {
-        create({title: this.chatName})
+        create({title: this.chatName}).catch(error => {
+            throw new Error(error)
+        });
     }
 
     render(): string {

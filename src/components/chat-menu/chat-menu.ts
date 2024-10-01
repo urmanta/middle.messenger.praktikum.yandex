@@ -65,7 +65,6 @@ class ChatMenu extends Block<ChatMenuProps, ChatMenuChildren> {
 
     deleteUser() {
         this.children.DeleteUserModal.show();
-        console.log('Удалить юзера');
     }
 
     render(): string {

@@ -22,3 +22,4 @@ export { FormWrapper } from './form-wrapper';
 export { Password } from './password';
 export { MessageField } from './chat-message-field';
 export { Modal } from './modal';
+export { Uploader } from './uploader';

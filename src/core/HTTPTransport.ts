@@ -18,6 +18,8 @@ type Options = {
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
+type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<unknown>
+
 export class HTTPTransport {
     private apiUrl: string = ''
 
@@ -25,20 +27,40 @@ export class HTTPTransport {
         this.apiUrl = `https://ya-praktikum.tech/api/v2${apiPath}`;
     }
 
-    get(url: string, options: OptionsWithoutMethod = {}): Promise<unknown> {
+    get: HTTPMethod = (url, options = {}) => {
         return this.request(`${this.apiUrl}${url}`, {...options, method: METHODS.GET});
     };
 
-    put(url: string, options: OptionsWithoutMethod = {}): Promise<unknown> {
+    put: HTTPMethod = (url, options = {}) => {
         return this.request(`${this.apiUrl}${url}`, {...options, method: METHODS.PUT});
     };
 
-    post(url: string, options: OptionsWithoutMethod = {}): Promise<unknown> {
+    post: HTTPMethod = (url, options = {}) => {
         return this.request(`${this.apiUrl}${url}`, {...options, method: METHODS.POST});
     };
 
-    delete(url: string, options: OptionsWithoutMethod = {}): Promise<unknown> {
+    delete: HTTPMethod = (url, options = {}) => {
         return this.request(`${this.apiUrl}${url}`, {...options, method: METHODS.DELETE});
+    };
+
+    sendFile(url: string, file: FormData): Promise<unknown> {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open(METHODS.PUT, `${this.apiUrl}${url}`);
+
+            xhr.onload = function() {
+                resolve(xhr);
+            };
+
+            xhr.onabort = reject;
+            xhr.onerror = reject;
+            xhr.timeout = 0;
+            xhr.ontimeout = reject;
+            xhr.withCredentials = true;
+            xhr.responseType = 'json';
+
+            xhr.send(file);
+        });
     };
 
     async request(url: string, options: Options = { method: METHODS.GET }): Promise<unknown> {

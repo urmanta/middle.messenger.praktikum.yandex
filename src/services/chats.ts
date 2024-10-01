@@ -44,7 +44,12 @@ const requestChatToken = async (data: { id: number, userId: number }) => {
     webSocket.onMessage((newMessages) => {
         const state = window.store.getState();
         const oldMessages = state.messages as Message[];
-        const parsedMessages = JSON.parse(newMessages);
+        let parsedMessages;
+        try {
+            parsedMessages = JSON.parse(newMessages);
+        } catch (error) {
+            console.error('Ошибка при парсинге JSON:', error);
+        }
         const messages = Array.isArray(parsedMessages) ? [...parsedMessages, ...oldMessages] : [parsedMessages, ...oldMessages]
         window.store.set({messages: messages})
     });

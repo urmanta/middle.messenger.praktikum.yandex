@@ -53,6 +53,7 @@
     box-shadow: $menu-shadow;
     overflow: hidden;
     padding: 5px 0;
+    z-index: 99;
 
     &-active {
       display: flex;

@@ -113,6 +113,8 @@ export default class FormRegistration extends Block<FormRegistrationProps, FormR
             console.log('Данные формы валидны', this.getFormData());
             signup(userData).then(() => {
                 this.props.router!.go('/messenger');
+            }).catch(error => {
+                throw new Error(error)
             });
         } else {
             console.log('Данные формы невалидны', this.getFormData());

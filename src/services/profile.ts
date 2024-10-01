@@ -15,11 +15,13 @@ const saveUserProfile = async (data: UserData) => {
     return response;
 }
 
-const changeAvatar = async (data: { avatar: FormData }) => {
+const changeAvatar = async (data: FormData) => {
     const { response } = await profileApi.changeAvatar(data) as XMLHttpRequest;
     if (apiHasError(response)) {
         throw Error(response.reason)
     }
+
+    return response;
 }
 
 const changePassword = async (data: { oldPassword: string, newPassword: string }) => {

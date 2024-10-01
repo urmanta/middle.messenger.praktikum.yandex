@@ -91,6 +91,8 @@ class FormLogin extends Block<FormLoginProps, FormLoginChildren> {
                 password: this.props.password as string
             }).then(() => {
                 this.props.router!.go('/messenger');
+            }).catch(error => {
+                throw new Error(error)
             });
         } else {
             console.log('Данные формы невалидны', this.getFormData());

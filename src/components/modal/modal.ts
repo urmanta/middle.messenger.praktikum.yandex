@@ -2,9 +2,10 @@ import Block from "../../core/Block";
 import { AddChat } from "../add-chat";
 import { AddUser } from "../add-user";
 import { DeleteUser } from "../delete-user";
+import AvatarChange from "../avatar/avatar-change";
 
 type ModalProps = {
-    ModalBody: InstanceType<typeof AddChat> | InstanceType<typeof AddUser> | InstanceType<typeof DeleteUser>,
+    ModalBody: InstanceType<typeof AddChat> | InstanceType<typeof AddUser> | InstanceType<typeof DeleteUser> | InstanceType<typeof AvatarChange>,
 }
 
 export default class Modal extends Block<ModalProps, object> {

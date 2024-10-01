@@ -8,8 +8,8 @@ export default class AuthApi {
         return userApi.put('/profile', {data})
     }
 
-    async changeAvatar(data: { avatar: FormData }): Promise<unknown | UserDTO | APIError> {
-        return userApi.put('/profile/avatar', {data})
+    async changeAvatar(data: FormData): Promise<unknown | UserDTO | APIError> {
+        return userApi.sendFile('/profile/avatar', data)
     }
 
     async changePassword(data: { oldPassword: string, newPassword: string }): Promise<unknown | void | APIError> {
