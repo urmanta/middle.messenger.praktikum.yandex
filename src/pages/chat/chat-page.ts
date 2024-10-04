@@ -1,34 +1,57 @@
-import { Link, Search, ChatList, MessageField } from "../../components";
+import { AddChat, AddButton, Link, Search, ChatList, ChatHeader, ChatMessages, MessageField, Modal } from "../../components";
 import Block from "../../core/Block";
+import { ChatDTO, Message } from "../../api/type";
+import connect from "../../core/Connect";
 
 type ChatPageProps = {
+    chats: ChatDTO[],
+    messages: Message[],
     className?: string
 }
 
 type ChatPageChildren = {
-    ToLogin: Link,
-    ToProfile: Link,
+    ToProfile: InstanceType<typeof Link>,
     SearchBlock: Search,
     ChatListBlock: ChatList,
-    MessageFieldBlock: MessageField
+    MessageFieldBlock: InstanceType<typeof MessageField>,
+    AddChatButton: AddButton,
+    AddChatModal: Modal,
+    ChatHeaderBlock: ChatHeader,
+    ChatMessagesBlock: InstanceType<typeof ChatMessages>
 }
 
-export default class ChatPage extends Block<ChatPageProps, ChatPageChildren> {
+class ChatPage extends Block<ChatPageProps, ChatPageChildren> {
     init() {
-        const ToLogin = new Link({label: 'Назад к логину', className: "chat-page__back", page: 'login'});
-        const ToProfile = new Link({label: 'Профиль', className: "chat-page__forward", page: 'profile'});
+        const ToProfile = new Link({label: 'Профиль', className: "chat-page__forward", page: '/settings'});
         const SearchBlock = new Search({className: "chat-page__search"});
-        const ChatListBlock = new ChatList({className: "chat-page__list"});
+        const ChatListBlock = new ChatList({className: "chat-page__list", chats: this.props.chats || []});
         const MessageFieldBlock = new MessageField({});
+        const ChatHeaderBlock = new ChatHeader({});
+        const ChatMessagesBlock = new ChatMessages({messages: this.props.messages});
+        const AddChatButton = new AddButton({onClick: () => {this.children.AddChatModal.show()}});
+        const AddChatModal = new Modal({ModalBody: new AddChat({})});
 
         this.children = {
             ...this.children,
-            ToLogin,
             ToProfile,
             SearchBlock,
             ChatListBlock,
-            MessageFieldBlock
+            MessageFieldBlock,
+            AddChatButton,
+            AddChatModal,
+            ChatHeaderBlock,
+            ChatMessagesBlock
         }
+    }
+
+    componentDidUpdate(oldProps: ChatPageProps, newProps: ChatPageProps): boolean {
+        if(oldProps === newProps) {
+            return false;
+        }
+
+        this.children.ChatMessagesBlock = new ChatMessages({messages: this.props.messages});
+
+        return true;
     }
 
     render() {
@@ -38,18 +61,26 @@ export default class ChatPage extends Block<ChatPageProps, ChatPageChildren> {
                     <aside class="chat-page__sidebar">
                         <div class="chat-page__header" >
                             <div class="chat-page__navigation">
-                                {{{ ToLogin }}}
                                 {{{ ToProfile }}}
                             </div>
-                            {{{ SearchBlock }}}
                         </div>
                         {{{ ChatListBlock }}}
+                        <div class="chat-page__add-chat">
+                            {{{ AddChatButton }}}
+                        </div>
                     </aside>
                     <div class="chat-page__chat">
-                        {{{ MessageFieldBlock }}}
+                        {{#if currentChat}}
+                            {{{ ChatHeaderBlock }}}
+                            {{{ ChatMessagesBlock }}}
+                            {{{ MessageFieldBlock }}}
+                        {{/if}}
                     </div>
+                    {{{ AddChatModal }}}
                 </div>
             </div>
         `
     }
 }
+
+export default connect(({ currentChat, chats, messages }) => ({ currentChat, chats, messages }))(ChatPage)

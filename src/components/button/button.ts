@@ -26,7 +26,6 @@ class Button extends Block<ButtonProps, object> {
         return `
             <button 
                 class="button button__{{type}}{{#if className}} {{className}}{{/if}}" 
-                page={{page}} 
                 {{#if disabled}} disabled{{/if}}
             >
                 {{label}}

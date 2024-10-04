@@ -13,7 +13,8 @@ type InputElementProps = {
     error?: boolean,
     errorText?: string,
     'align-right'?: boolean,
-    onBlur: (e: Event) => void,
+    onBlur?: (e: Event) => void,
+    onInput?: (e: Event) => void,
 }
 
 type InputElementChildren = {
@@ -33,7 +34,8 @@ class InputElement extends Block<InputElementProps, InputElementChildren> {
                 className: props.className,
                 readonly: props.readonly,
                 events: {
-                    blur: props.onBlur || (() => {})
+                    blur: props.onBlur || (() => {}),
+                    input: props.onInput || (() => {})
                 }
             }),
             ErrorLine: new ErrorLine({
@@ -47,6 +49,7 @@ class InputElement extends Block<InputElementProps, InputElementChildren> {
             return false;
         }
 
+        this.children.Input.setProps(newProps);
         this.children.ErrorLine.setProps(newProps);
         return true;
     }

@@ -8,10 +8,11 @@
   left: 0;
   right: 0;
   display: flex;
-  align-items: end;
+  align-items: center;
 
   &__input {
     margin: 0;
+    width: 100%;
   }
   &__input input {
     border: none;
@@ -31,18 +32,32 @@
 
   &__button {
     height: 28px;
-    width: 28px;
+    width: 40px;
     border-radius: 14px;
     border: none;
     margin-left: 10px;
+    position: relative;
+  }
+
+  &__button:before,
+  &__button:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 10px;
+    border-radius: 2px;
+    position: absolute;
+    background: white;
+    left: 18px;
   }
 
   &__button:before {
-    content: '';
-    display: block;
-    height: 18px;
-    width: 18px;
-    background: url("../../assets/icons/forward.svg") no-repeat center center;
-    background-size: contain;
+    top: 10px;
+    transform: rotate(45deg);
+  }
+
+  &__button:after {
+    bottom: 10px;
+    transform: rotate(-45deg);
   }
 }

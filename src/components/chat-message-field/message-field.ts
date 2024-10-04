@@ -3,7 +3,6 @@ import { Button } from "../button";
 import { ProfileField } from "../profile-field";
 
 type MessageFieldProps = {
-    isFormValid?: boolean,
     message: string,
     name?: string,
 }
@@ -14,12 +13,14 @@ type MessageFieldChildren = {
 }
 
 class MessageField extends Block<MessageFieldProps, MessageFieldChildren> {
+    message: string = '';
+
     init() {
         const onChangeBind = this.onChange.bind(this);
         const onSendBind = this.onSend.bind(this);
 
-        const MessageInput = new ProfileField({title: '', name: 'message', className: 'message-field__input', onBlur: onChangeBind});
-        const SendButton = new Button({label: '', type: 'submit', className: 'message-field__button', onClick: onSendBind, disabled: !this.props.isFormValid});
+        const MessageInput = new ProfileField({title: '', name: 'message', className: 'message-field__input', value: this.props.message, onInput: onChangeBind});
+        const SendButton = new Button({label: '', type: 'submit', className: 'message-field__button', onClick: onSendBind});
 
         this.children = {
             ...this.children,
@@ -33,15 +34,20 @@ class MessageField extends Block<MessageFieldProps, MessageFieldChildren> {
             return false;
         }
 
-        this.children.SendButton.setProps({...newProps, disabled: !newProps.isFormValid});
+        this.children.MessageInput.setProps({...newProps, value: this.props.message});
         return true;
     }
 
     onSend() {
-        if (this.props.isFormValid) {
-            console.log('Данные формы валидны', this.props.message);
-        } else {
-            console.log('Данные формы невалидны', this.props.message);
+        if (window.webSocket && this.message) {
+            window.webSocket.sendMessage(JSON.stringify({
+                content: this.message,
+                type: "message"
+            }));
+            this.message = '';
+            this.setProps({
+                message: ''
+            });
         }
     }
 
@@ -49,10 +55,7 @@ class MessageField extends Block<MessageFieldProps, MessageFieldChildren> {
         const inputElement = e.target as HTMLInputElement;
         const {value} = inputElement;
 
-        this.setProps({
-            isFormValid: Boolean(value),
-            message: value
-        });
+        this.message = value;
     }
 
     render(): string {

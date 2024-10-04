@@ -1,27 +1,25 @@
 import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
+import { UserDTO } from "../../api/type";
+import connect from "../../core/Connect";
 
 type ProfilePageProps = {
-    className?: string
+    className?: string,
+    user: UserDTO
 }
 
 type ProfilePageChildren = {
-    ProfileWrapper: Wrapper
+    ProfileWrapper: InstanceType<typeof Wrapper>
 }
 
-export default class ProfilePage extends Block<ProfilePageProps, ProfilePageChildren> {
+class ProfilePage extends Block<ProfilePageProps, ProfilePageChildren> {
     constructor(props: ProfilePageProps) {
         super({
             ...props,
             ProfileWrapper: new Wrapper({
                 ProfileBody: new Profile({
-                    mail: 'celestia@gmail.com',
-                    login: 'celestia',
-                    first_name: 'Селестия',
-                    second_name: 'Принцесса',
-                    display_name: 'Селестия',
-                    phone: '+79099990090'
+                    ...props.user
                 })
             })
         });
@@ -33,3 +31,6 @@ export default class ProfilePage extends Block<ProfilePageProps, ProfilePageChil
         )
     }
 }
+
+// @ts-expect-error: пу пу пу
+export default connect(({ user }) => ({ user }))(ProfilePage);

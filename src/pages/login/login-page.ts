@@ -1,5 +1,6 @@
 import { FormLogin, FormWrapper } from "../../components";
 import Block from "../../core/Block";
+import connect from '../../core/Connect';
 
 type LoginPageProps = {
     className?: string
@@ -9,7 +10,7 @@ type LoginPageChildren = {
     FormLogin: FormWrapper,
 }
 
-export default class LoginPage extends Block<LoginPageProps, LoginPageChildren> {
+class LoginPage extends Block<LoginPageProps, LoginPageChildren> {
     constructor(props: LoginPageProps) {
         super({
             ...props,
@@ -34,3 +35,5 @@ export default class LoginPage extends Block<LoginPageProps, LoginPageChildren> 
         `
     }
 }
+
+export default connect(({loginField}) => ({loginField}))(LoginPage);

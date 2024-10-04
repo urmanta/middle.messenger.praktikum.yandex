@@ -5,7 +5,7 @@ import { FormRegistration, FormLogin } from "../../components";
 
 type FormWrapperProps = {
     title: string,
-    FormBody: FormLogin | FormRegistration,
+    FormBody: InstanceType<typeof FormLogin> | FormRegistration,
 }
 
 type FormWrapperChildren = {

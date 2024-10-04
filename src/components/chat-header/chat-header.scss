@@ -1,0 +1,9 @@
+@import '../../assets/variables';
+
+.chat-header {
+  height: 54px;
+  background: $chat-list-bgcolor;
+  border-bottom: 1px solid $divider-line-color;
+  display: flex;
+  justify-content: end;
+}

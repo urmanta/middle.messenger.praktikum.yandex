@@ -1,0 +1,17 @@
+@import '../../assets/variables';
+
+input[type="file"] {
+  display: none;
+}
+
+.uploader__button {
+  width: 150px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  color: #5947F8;
+  border: none;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+  text-decoration: underline;
+}

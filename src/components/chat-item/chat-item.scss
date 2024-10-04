@@ -30,10 +30,12 @@
 
   &__avatar {
     grid-area: a;
-    background: $gray-light-color;
+    background: $text-bgcolor;
+    border: 2px solid #B69DF7;
     height: 47px;
     width: 47px;
     border-radius: 50%;
+    margin-top: -2px;
   }
 
   &__name {

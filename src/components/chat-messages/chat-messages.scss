@@ -1,0 +1,12 @@
+@import '../../assets/variables';
+
+.chat-messages {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: end;
+  align-items: baseline;
+  overflow-y: scroll;
+  padding: 20px;
+  height: calc(100% - 55px - 50px);
+  box-sizing: border-box;
+}

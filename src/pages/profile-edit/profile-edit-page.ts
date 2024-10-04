@@ -1,28 +1,26 @@
 import Block from "../../core/Block";
 import { Wrapper } from "../../components/wrapper";
 import { Profile } from "../../components/profile";
+import { UserDTO } from "../../api/type";
+import connect from "../../core/Connect";
 
 type ProfileEditPageProps = {
-    className?: string
+    className?: string,
+    user: UserDTO
 }
 
 type ProfileEditPageChildren = {
-    ProfileWrapper: Wrapper
+    ProfileWrapper: InstanceType<typeof Wrapper>
 }
 
-export default class ProfileEditPage extends Block<ProfileEditPageProps, ProfileEditPageChildren> {
+class ProfileEditPage extends Block<ProfileEditPageProps, ProfileEditPageChildren> {
     constructor(props: ProfileEditPageProps) {
         super({
             ...props,
             ProfileWrapper: new Wrapper({
                 ProfileBody: new Profile({
                     isEditMode: true,
-                    mail: 'celestia@gmail.com',
-                    login: 'celestia',
-                    first_name: 'Селестия',
-                    second_name: 'Принцесса',
-                    display_name: 'Селестия',
-                    phone: '+79099990090'
+                    ...props.user
                 })
             })
         });
@@ -34,3 +32,6 @@ export default class ProfileEditPage extends Block<ProfileEditPageProps, Profile
         )
     }
 }
+
+// @ts-expect-error: пу пу пу
+export default connect(({ user }) => ({ user }))(ProfileEditPage);
