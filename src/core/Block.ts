@@ -32,7 +32,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
 
     protected _element: HTMLElement | null = null;
 
-    protected _id: number = Math.floor(100000 + Math.random() * 900000);
+    public _id: number = Math.floor(100000 + Math.random() * 900000);
 
     protected _needUpdate = true;
 
@@ -75,7 +75,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         });
     }
 
-    protected removeEvents() {
+    removeEvents() {
         this._removeEvents();
     }
 
@@ -99,7 +99,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         Object.values(this.children).forEach(child => {child.dispatchComponentDidMount();});
     }
 
-    protected componentDidMount(): void {}
+    public componentDidMount(): void {}
 
     public dispatchComponentDidMount(): void {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -113,7 +113,7 @@ export default class Block<BlockProps extends Props, Children extends RefType = 
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
 
-    protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
+    public componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
         for (const propKey in newProps) {
             if (oldProps[propKey] !== newProps[propKey]) {
                 return true;
