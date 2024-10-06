@@ -14,8 +14,8 @@
     "lint": "ESLINT_USE_FLAT_CONFIG=true npx eslint ./src --report-unused-disable-directives --max-warnings 0 && npx stylelint 'src/**/*.scss' '!src/assets/**/*.scss' --max-warnings 0",
     "lint:fix": "npx eslint ./src --fix && npx stylelint 'src/**/*.scss' '!src/assets/**/*.scss' --fix",
     "test": "mocha",
-    "postinstall": "husky install",
-    "prepare": "husky"
+    "prepare": "husky install",
+    "postinstall": "husky install"
   },
   "husky": {
     "hooks": {
