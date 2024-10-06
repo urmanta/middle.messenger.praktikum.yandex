@@ -1,5 +1,5 @@
-import Block from "../../core/Block";
-import { Error } from "../../components/error";
+import Block from '../../core/Block';
+import { Error } from '../../components/error';
 
 type NotFoundProps = {
     className?: string
@@ -10,18 +10,18 @@ type NotFoundChildren = {
 }
 
 class NotFound extends Block<NotFoundProps, NotFoundChildren> {
-    constructor(props: NotFoundProps) {
-        super({
-            ...props,
-            ErrorBlock: new Error({text: 'Страница не найдена', code: '404'})
-        })
-    }
+  constructor(props: NotFoundProps) {
+    super({
+      ...props,
+      ErrorBlock: new Error({ text: 'Страница не найдена', code: '404' }),
+    });
+  }
 
-    render(): string {
-        return `
+  render(): string {
+    return `
             {{{ ErrorBlock }}}
-        `
-    }
+        `;
+  }
 }
 
 export default NotFound;

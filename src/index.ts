@@ -1,7 +1,7 @@
 import * as Pages from './pages';
 import Router from './core/Router';
 import Store from './core/Store';
-import WebSocketService from "./core/WebSocket";
+import WebSocketService from './core/WebSocket';
 import { initApp } from './services/initApp';
 
 declare global {
@@ -15,12 +15,12 @@ declare global {
 }
 
 window.store = new Store({
-    loginField: null,
-    loginError: null,
-    chats: [],
-    messages: [],
-    user: null,
-    currentChat: null
+  loginField: null,
+  loginError: null,
+  chats: [],
+  messages: [],
+  user: null,
+  currentChat: null,
 });
 
 const router = new Router('#app');
@@ -28,17 +28,16 @@ const router = new Router('#app');
 window.router = router;
 
 router
-    .use('/', Pages.LoginPage)
-    .use('/login', Pages.LoginPage)
-    .use('/sign-up', Pages.RegistrationPage)
-    .use('/settings', Pages.ProfilePage)
-    .use('/settings-edit', Pages.ProfileEditPage)
-    .use('/settings-password-edit', Pages.PasswordEditPage)
-    .use('/messenger', Pages.ChatPage)
-    .use('/404', Pages.NotFound)
-    .use('/500', Pages.ServerError)
-    .error(Pages.NotFound)
-    .start();
+  .use('/', Pages.LoginPage)
+  .use('/login', Pages.LoginPage)
+  .use('/sign-up', Pages.RegistrationPage)
+  .use('/settings', Pages.ProfilePage)
+  .use('/settings-edit', Pages.ProfileEditPage)
+  .use('/settings-password-edit', Pages.PasswordEditPage)
+  .use('/messenger', Pages.ChatPage)
+  .use('/404', Pages.NotFound)
+  .use('/500', Pages.ServerError)
+  .error(Pages.NotFound)
+  .start();
 
 document.addEventListener('DOMContentLoaded', () => initApp());
-

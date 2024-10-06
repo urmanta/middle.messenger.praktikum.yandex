@@ -1,8 +1,8 @@
-import Block from "../../core/Block";
-import { Wrapper } from "../../components/wrapper";
-import { Profile } from "../../components/profile";
-import { UserDTO } from "../../api/type";
-import connect from "../../core/Connect";
+import Block from '../../core/Block';
+import { Wrapper } from '../../components/wrapper';
+import { Profile } from '../../components/profile';
+import { UserDTO } from '../../api/type';
+import connect from '../../core/Connect';
 
 type ProfilePageProps = {
     className?: string,
@@ -14,22 +14,22 @@ type ProfilePageChildren = {
 }
 
 class ProfilePage extends Block<ProfilePageProps, ProfilePageChildren> {
-    constructor(props: ProfilePageProps) {
-        super({
-            ...props,
-            ProfileWrapper: new Wrapper({
-                ProfileBody: new Profile({
-                    ...props.user
-                })
-            })
-        });
-    }
+  constructor(props: ProfilePageProps) {
+    super({
+      ...props,
+      ProfileWrapper: new Wrapper({
+        ProfileBody: new Profile({
+          ...props.user,
+        }),
+      }),
+    });
+  }
 
-    render() {
-        return (
-            `{{{ ProfileWrapper }}}`
-        )
-    }
+  render() {
+    return (
+      '{{{ ProfileWrapper }}}'
+    );
+  }
 }
 
 // @ts-expect-error: пу пу пу

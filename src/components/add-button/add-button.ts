@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from '../../core/Block';
 
 type ButtonProps = {
     className?: string,
@@ -9,22 +9,22 @@ type ButtonProps = {
 }
 
 class Button extends Block<ButtonProps, object> {
-    constructor(props: ButtonProps) {
-        super({
-            ...props,
-            events: {
-                click: props.onClick
-            }
-        })
-    }
+  constructor(props: ButtonProps) {
+    super({
+      ...props,
+      events: {
+        click: props.onClick,
+      },
+    });
+  }
 
-    render(): string {
-        return `
+  render(): string {
+    return `
             <button 
                 class="add-button {{#if className}} {{className}}{{/if}}"
             />
-        `
-    }
+        `;
+  }
 }
 
 export default Button;

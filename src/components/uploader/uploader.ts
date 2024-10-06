@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from '../../core/Block';
 
 type UploaderProps = {
     value?: string,
@@ -8,24 +8,24 @@ type UploaderProps = {
 }
 
 class Uploader extends Block<UploaderProps, object> {
-    constructor(props: UploaderProps) {
-        super({
-            ...props,
-            events: {
-                change: ((event) => {
-                    const target = event.target as HTMLInputElement;
-                    const fileLabel = document.querySelector('.uploader__button');
+  constructor(props: UploaderProps) {
+    super({
+      ...props,
+      events: {
+        change: ((event) => {
+          const target = event.target as HTMLInputElement;
+          const fileLabel = document.querySelector('.uploader__button');
                     fileLabel!.textContent = target.files ? target.files[0]?.name : 'Выбрать файл на компьютере'; // Показать имя файла
                     if (target.files) {
-                        props.onChange(target.files);
+                      props.onChange(target.files);
                     }
-                })
-            }
-        })
-    }
+        }),
+      },
+    });
+  }
 
-    render(): string {
-        return `
+  render(): string {
+    return `
             <div class="uploader">
                 <label for="file-uploader" class="uploader__button">
                     Выбрать файл на компьютере
@@ -38,8 +38,8 @@ class Uploader extends Block<UploaderProps, object> {
                     value="{{#if value}}{{ value }}{{/if}}"
                 />
             </div>
-        `
-    }
+        `;
+  }
 }
 
 export default Uploader;

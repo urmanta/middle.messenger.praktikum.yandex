@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from '../../core/Block';
 
 type ButtonProps = {
     disabled?: boolean,
@@ -13,25 +13,25 @@ type ButtonProps = {
 }
 
 class Button extends Block<ButtonProps, object> {
-    constructor(props: ButtonProps) {
-        super({
-            ...props,
-            events: {
-                click: props.onClick
-            }
-        })
-    }
+  constructor(props: ButtonProps) {
+    super({
+      ...props,
+      events: {
+        click: props.onClick,
+      },
+    });
+  }
 
-    render(): string {
-        return `
+  render(): string {
+    return `
             <button 
                 class="button button__{{type}}{{#if className}} {{className}}{{/if}}" 
                 {{#if disabled}} disabled{{/if}}
             >
                 {{label}}
             </button>
-        `
-    }
+        `;
+  }
 }
 
 export default Button;

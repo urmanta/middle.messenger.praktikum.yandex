@@ -1,7 +1,7 @@
-import Block from "../../core/Block";
-import { ChatDTO, UserDTO, Message } from "../../api/type";
-import connect from "../../core/Connect";
-import { requestChatToken } from "../../services/chats";
+import Block from '../../core/Block';
+import { ChatDTO, UserDTO, Message } from '../../api/type';
+import connect from '../../core/Connect';
+import { requestChatToken } from '../../services/chats';
 
 type ChatItemProps = ChatDTO & {
     user: UserDTO,
@@ -11,39 +11,39 @@ type ChatItemProps = ChatDTO & {
 };
 
 class ChatItem extends Block<ChatItemProps, object> {
-    constructor(props: ChatItemProps) {
-        const getDate = (time: string): string => {
-            const date = new Date(time);
-            return `${date.getHours()}:${date.getMinutes()}`
-        }
+  constructor(props: ChatItemProps) {
+    const getDate = (time: string): string => {
+      const date = new Date(time);
+      return `${date.getHours()}:${date.getMinutes()}`;
+    };
 
-        super({
-            ...props,
-            isCurrent: props.currentChat === props.id,
-            events: {
-                click: () => {
-                    if (window.webSocket) window.webSocket.disconnect();
-                    requestChatToken({id: props.id, userId: props.user.id}).catch(error => {
-                        throw new Error(error)
-                    });
-                }
-            },
-            date: props.last_message ? getDate(props.last_message.time) : ''
-        });
+    super({
+      ...props,
+      isCurrent: props.currentChat === props.id,
+      events: {
+        click: () => {
+          if (window.webSocket) window.webSocket.disconnect();
+          requestChatToken({ id: props.id, userId: props.user.id }).catch((error) => {
+            throw new Error(error);
+          });
+        },
+      },
+      date: props.last_message ? getDate(props.last_message.time) : '',
+    });
+  }
+
+  componentDidUpdate(oldProps: ChatItemProps, newProps: ChatItemProps): boolean {
+    if (oldProps.currentChat === newProps.currentChat) {
+      return false;
     }
+    this.setProps({
+      isCurrent: newProps.currentChat === newProps.id,
+    });
+    return true;
+  }
 
-    componentDidUpdate(oldProps: ChatItemProps, newProps: ChatItemProps): boolean {
-        if (oldProps.currentChat === newProps.currentChat) {
-            return false;
-        }
-        this.setProps({
-            isCurrent: newProps.currentChat === newProps.id
-        })
-        return true;
-    }
-
-    render(): string {
-        return `
+  render(): string {
+    return `
             <div class="chat-item">
                 <div class="chat-item__line"></div>
                 <div class="chat-item__block{{#if isCurrent}} chat-item__block--current{{/if}}">
@@ -66,8 +66,8 @@ class ChatItem extends Block<ChatItemProps, object> {
                     {{/if}}
                 </div>
             </div>
-        `
-    }
+        `;
+  }
 }
 
 // @ts-expect-error: пу пу пу
