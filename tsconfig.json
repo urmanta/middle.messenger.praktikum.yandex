@@ -20,12 +20,12 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "ts-node": {
     "esm": true,
     "experimentalSpecifierResolution": "node",
-    "transpileOnly": true,
+    "transpileOnly": true
   },
   "include": ["src/**/*.ts", "src/**/*.js"],
   "exclude": ["node_modules", "dist"]
