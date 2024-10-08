@@ -17,6 +17,10 @@
     "prepare": "husky install",
     "postinstall": "husky install"
   },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": "ESLINT_USE_FLAT_CONFIG=true npx eslint ./src --report-unused-disable-directives --max-warnings 0",
+    "**/*.{css,scss}": "npx stylelint 'src/**/*.scss' '!src/assets/**/*.scss' --max-warnings 0"
+  },
   "devDependencies": {
     "@types/chai": "^4.3.9",
     "@types/mocha": "^10.0.3",
@@ -33,6 +37,7 @@
     "globals": "^15.9.0",
     "husky": "^7.0.4",
     "jsdom": "^25.0.1",
+    "lint-staged": "^15.2.10",
     "mocha": "^10.2.0",
     "node-fetch": "^3.3.2",
     "sass": "^1.77.5",
@@ -46,12 +51,16 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",
+    "cookie": "^0.7.2",
     "express": "^4.21.0",
     "postcss-nested": "^6.0.1",
     "stylelint-scss": "^6.5.1",
     "vite-plugin-handlebars": "^2.0.0"
   },
   "overrides": {
-    "eslint": "^8.57.0"
+    "eslint": "^8.57.0",
+    "express": {
+      "cookie": "0.7.2"
+    }
   }
 }
