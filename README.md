@@ -1,5 +1,6 @@
 ![Макет](https://www.figma.com/design/xZ9pGaxrjqaGgwZ1nJPDCz/Chat_external_link?node-id=0-1&t=HPY3rRbPwJETz5kV-1)
 ![Проект на Netlify](https://urmanta-messenger.netlify.app/)
+![Deploy Preview](https://deploy-preview-7--urmanta-messenger.netlify.app)
 ![Пулл-реквест](https://github.com/urmanta/middle.messenger.praktikum.yandex/pull/6)
 
 Мессенджер, результат работы четвертого спринта
