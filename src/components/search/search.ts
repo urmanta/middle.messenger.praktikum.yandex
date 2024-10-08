@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from '../../core/Block';
 
 type SearchProps = {
     className?: string
@@ -7,22 +7,22 @@ type SearchProps = {
 type SearchChildren = object
 
 class Search extends Block<SearchProps, SearchChildren> {
-    constructor(props: SearchProps) {
-        super({
-            ...props
-        })
-    }
+  constructor(props: SearchProps) {
+    super({
+      ...props,
+    });
+  }
 
-    render(): string {
-        return `
+  render(): string {
+    return `
             <div class="search{{#if className}} {{className}}{{/if}}">
                 <input
                     class="search__element" autocomplete="off" type="search"
                     title="Поиск" placeholder="Поиск" name="search" value="{{value}}"
                 />
             </div>
-        `
-    }
+        `;
+  }
 }
 
 export default Search;

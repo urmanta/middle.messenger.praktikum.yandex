@@ -9,32 +9,33 @@ export type StateType = {
 }
 
 class Store extends EventBus {
-    private static __instance: Store | null = null;
-    private state: StateType = {};
+  private static __instance: Store | null = null;
 
-    constructor(defaultState: StateType) {
-        if (Store.__instance) {
-            return Store.__instance;
-        }
-        super();
+  private state: StateType = {};
 
-        this.state = defaultState;
-        this.set(defaultState);
-
-        Store.__instance = this;
+  constructor(defaultState: StateType) {
+    if (Store.__instance) {
+      return Store.__instance;
     }
+    super();
 
-    public getState() {
-        return this.state;
-    }
+    this.state = defaultState;
+    this.set(defaultState);
 
-    public set(nextState: StateType) {
-        const prevState = { ...this.state };
+    Store.__instance = this;
+  }
 
-        this.state = { ...this.state, ...nextState };
+  public getState() {
+    return this.state;
+  }
 
-        this.emit(StoreEvents.Updated, prevState, nextState);
-    }
+  public set(nextState: StateType) {
+    const prevState = { ...this.state };
+
+    this.state = { ...this.state, ...nextState };
+
+    this.emit(StoreEvents.Updated, prevState, nextState);
+  }
 }
 
 export default Store;

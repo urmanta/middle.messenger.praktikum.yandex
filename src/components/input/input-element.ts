@@ -1,6 +1,6 @@
-import Block from "../../core/Block";
-import ErrorLine from "./error-line";
-import Input from "./input";
+import Block from '../../core/Block';
+import ErrorLine from './error-line';
+import Input from './input';
 
 type InputElementProps = {
     type?: string,
@@ -23,39 +23,39 @@ type InputElementChildren = {
 }
 
 class InputElement extends Block<InputElementProps, InputElementChildren> {
-    constructor(props: InputElementProps) {
-        super({
-            ...props,
-            Input: new Input({
-                type: props.type,
-                name: props.name,
-                placeholder: props.placeholder,
-                value: props.value,
-                className: props.className,
-                readonly: props.readonly,
-                events: {
-                    blur: props.onBlur || (() => {}),
-                    input: props.onInput || (() => {})
-                }
-            }),
-            ErrorLine: new ErrorLine({
-                errorText: props.errorText || ''
-            })
-        })
+  constructor(props: InputElementProps) {
+    super({
+      ...props,
+      Input: new Input({
+        type: props.type,
+        name: props.name,
+        placeholder: props.placeholder,
+        value: props.value,
+        className: props.className,
+        readonly: props.readonly,
+        events: {
+          blur: props.onBlur || (() => {}),
+          input: props.onInput || (() => {}),
+        },
+      }),
+      ErrorLine: new ErrorLine({
+        errorText: props.errorText || '',
+      }),
+    });
+  }
+
+  componentDidUpdate(oldProps: InputElementProps, newProps: InputElementProps): boolean {
+    if (oldProps === newProps) {
+      return false;
     }
 
-    componentDidUpdate(oldProps: InputElementProps, newProps: InputElementProps): boolean {
-        if(oldProps === newProps) {
-            return false;
-        }
+    this.children.Input.setProps(newProps);
+    this.children.ErrorLine.setProps(newProps);
+    return true;
+  }
 
-        this.children.Input.setProps(newProps);
-        this.children.ErrorLine.setProps(newProps);
-        return true;
-    }
-
-    render(): string {
-        return `
+  render(): string {
+    return `
         <div class="input{{#if className}} {{ className }}{{/if}}{{#if error}} input__error{{/if}}" >
             <label class="input__container">
                 {{{ Input }}}
@@ -63,8 +63,8 @@ class InputElement extends Block<InputElementProps, InputElementChildren> {
             </label>
             {{{ ErrorLine }}}
         </div>
-    `
-    }
+    `;
+  }
 }
 
 export default InputElement;

@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from '../../core/Block';
 
 type PageTitleProps = {
     title: string
@@ -7,17 +7,17 @@ type PageTitleProps = {
 type PageTitleChildren = object
 
 class PageTitle extends Block<PageTitleProps, PageTitleChildren> {
-    constructor(props: PageTitleProps) {
-        super(props)
-    }
+  constructor(props: PageTitleProps) {
+    super(props);
+  }
 
-    render(): string {
-        return `
+  render(): string {
+    return `
             <h1 class="page-title">
                 {{ title }}
             </h1>
-        `
-    }
+        `;
+  }
 }
 
 export default PageTitle;

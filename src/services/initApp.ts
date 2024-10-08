@@ -1,27 +1,27 @@
-import { getUser } from "./auth";
-import { getChats } from "./chats";
+import { getUser } from './auth';
+import { getChats } from './chats';
 
 const initApp = async () => {
-    let me = null;
-    try {
-        me = await getUser();
-    } catch (error) {
-        window.router.go('/');
-        console.log('error', error);
-        return;
-    }
+  let me = null;
+  try {
+    me = await getUser();
+  } catch (error) {
+    window.router.go('/');
+    console.log('error', error);
+    return;
+  }
 
-    const chats = await getChats();
-    window.store.set({user: me, chats});
-    window.router.go('/messenger');
-}
+  const chats = await getChats();
+  window.store.set({ user: me, chats });
+  window.router.go('/messenger');
+};
 
 const initChatPage = async () => {
-    const chats = await getChats();
-    window.store.set({chats});
-}
+  const chats = await getChats();
+  window.store.set({ chats });
+};
 
 export {
-    initApp,
-    initChatPage
-}
+  initApp,
+  initChatPage,
+};

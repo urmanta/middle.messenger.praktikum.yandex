@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from '../../core/Block';
 
 type InputProps = {
     type?: string,
@@ -13,12 +13,12 @@ type InputProps = {
 }
 
 class Input extends Block<InputProps, object> {
-    constructor(props: InputProps) {
-        super(props)
-    }
+  constructor(props: InputProps) {
+    super(props);
+  }
 
-    render(): string {
-        return `
+  render(): string {
+    return `
             <input
                 class="input__element{{#if className}} {{ className }}{{/if}}"
                 type="{{#if type}}{{ type }}{{else}}text{{/if}}"
@@ -28,8 +28,8 @@ class Input extends Block<InputProps, object> {
                 autocomplete="off"
                 {{#if readonly}} readonly{{/if}}
             />
-        `
-    }
+        `;
+  }
 }
 
 export default Input;
